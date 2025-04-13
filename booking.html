@@ -1,3 +1,4 @@
+<!-- Updated Booking Page with Dynamic Destination Filter -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,128 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KTM Booking</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9fbfd;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #ffffff;
-      padding: 15px 40px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      color: #2563eb;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 20px;
-    }
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-    nav a.active {
-      color: #2563eb;
-    }
-    select {
-      padding: 5px 10px;
-      font-size: 14px;
-      border-radius: 5px;
-    }
-    main {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
-    h2 {
-      text-align: center;
-      color: #1e3a8a;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: 500;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    .btn {
-      margin-top: 30px;
-      width: 100%;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .btn:hover {
-      background-color: #1d4ed8;
-    }
-    .schedule-options {
-      margin-top: 25px;
-    }
-    .schedule-options div {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-top: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .schedule-options div:hover {
-      background-color: #e0f2fe;
-      border-color: #3b82f6;
-    }
-    #success-message {
-      display: none;
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #d1fae5;
-      color: #065f46;
-      border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-    }
-    footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 14px;
-      color: #777;
-    }
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        margin-top: 10px;
-      }
-    }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f9fbfd; margin: 0; padding: 0; }
+    header { background-color: #ffffff; padding: 15px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo { font-size: 22px; font-weight: bold; color: #2563eb; }
+    nav { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
+    nav a { text-decoration: none; color: #333; font-weight: 500; }
+    nav a.active { color: #2563eb; }
+    select { padding: 5px 10px; font-size: 14px; border-radius: 5px; }
+    main { max-width: 600px; margin: 40px auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    h2 { text-align: center; color: #1e3a8a; }
+    label { display: block; margin-top: 20px; font-weight: 500; }
+    input, select { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+    .btn { margin-top: 30px; width: 100%; background-color: #2563eb; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; }
+    .btn:hover { background-color: #1d4ed8; }
+    .schedule-options { margin-top: 25px; }
+    .schedule-options div { padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-top: 10px; cursor: pointer; transition: all 0.2s; }
+    .schedule-options div:hover { background-color: #e0f2fe; border-color: #3b82f6; }
+    #success-message { display: none; margin-top: 20px; padding: 15px; background-color: #d1fae5; color: #065f46; border-radius: 8px; font-weight: bold; text-align: center; }
+    footer { text-align: center; padding: 30px; font-size: 14px; color: #777; }
+    @media (max-width: 768px) { header { flex-direction: column; align-items: flex-start; } nav { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 10px; } }
   </style>
 </head>
 <body>
@@ -137,35 +35,17 @@
       <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
       <a href="booking.html" class="active" data-en="Booking" data-ms="Tempahan" data-zh="订票">Booking</a>
       <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
-      <select id="language-switcher">
-        <option value="en" selected>English</option>
-        <option value="ms">Bahasa Melayu</option>
-        <option value="zh">中文</option>
-      </select>
     </nav>
   </header>
   <main>
     <h2 data-en="Book Your Train Ticket" data-ms="Tempah Tiket Kereta Api" data-zh="预订火车票">Book Your Train Ticket</h2>
-    <label for="departure" data-en="Departure Station" data-ms="Stesen Bertolak" data-zh="出发站">Departure Station</label>
-    <select id="departure" onchange="updateTimes()">
+    <label for="departure">Departure Station</label>
+    <select id="departure" onchange="updateDestinations()">
       <option value="">-- Select --</option>
-      <option value="Batu Caves">Batu Caves</option>
-      <option value="Sentul">Sentul</option>
-      <option value="KL Sentral">KL Sentral</option>
-      <option value="Kajang">Kajang</option>
-      <option value="Seremban">Seremban</option>
-      <option value="Pulau Sebang">Pulau Sebang</option>
-      <option value="Mid Valley">Mid Valley</option>
     </select>
-    <label for="destination" data-en="Destination Station" data-ms="Stesen Destinasi" data-zh="目的地站">Destination Station</label>
+    <label for="destination">Destination Station</label>
     <select id="destination" onchange="updateTimes()">
       <option value="">-- Select --</option>
-      <option value="KL Sentral">KL Sentral</option>
-      <option value="Kajang">Kajang</option>
-      <option value="Seremban">Seremban</option>
-      <option value="Pulau Sebang">Pulau Sebang</option>
-      <option value="Tanjung Malim">Tanjung Malim</option>
-      <option value="Sentul">Sentul</option>
     </select>
     <label for="date">Travel Date</label>
     <input type="date" id="date">
@@ -184,18 +64,39 @@
     © 2025 KTM Malaysia. All rights reserved.
   </footer>
   <script>
-    const trainTimes = {
-      "Batu Caves-KL Sentral": ["06:02 AM"],
-      "Sentul-Kajang": ["07:10 AM"],
-      "KL Sentral-Seremban": ["08:28 AM"],
-      "Kajang-KL Sentral": ["09:45 AM"],
-      "Seremban-Pulau Sebang": ["10:26 AM"],
-      "Pulau Sebang-Seremban": ["01:30 PM"],
-      "Mid Valley-Tanjung Malim": ["03:05 PM"],
-      "Batu Caves-Sentul": ["05:55 PM"]
+    const routes = {
+      "KL Sentral": ["Kajang", "UKM", "Seremban", "Pulau Sebang"],
+      "Kajang": ["Seremban", "Pulau Sebang"],
+      "UKM": ["Seremban"],
+      "Seremban": ["Pulau Sebang"]
     };
 
-    let selectedTime = "";
+    const trainTimes = {
+      "KL Sentral-Kajang": ["06:33"],
+      "KL Sentral-UKM": ["07:00"],
+      "KL Sentral-Seremban": ["07:45"],
+      "KL Sentral-Pulau Sebang": ["09:03", "17:00", "21:30"],
+      "Kajang-Seremban": ["10:30"],
+      "Kajang-Pulau Sebang": ["13:15"],
+      "UKM-Seremban": ["13:28"],
+      "Seremban-Pulau Sebang": ["14:51"]
+    };
+
+    function updateDestinations() {
+      const dep = document.getElementById("departure").value;
+      const destSelect = document.getElementById("destination");
+      destSelect.innerHTML = '<option value="">-- Select --</option>';
+      if (routes[dep]) {
+        routes[dep].forEach(dest => {
+          const opt = document.createElement("option");
+          opt.value = dest;
+          opt.textContent = dest;
+          destSelect.appendChild(opt);
+        });
+      }
+      document.getElementById("schedule-options").innerHTML = "";
+      document.getElementById("passenger-section").style.display = "none";
+    }
 
     function updateTimes() {
       const from = document.getElementById("departure").value;
@@ -219,33 +120,35 @@
         optionsDiv.innerHTML = `<p><em>No trains found for this route.</em></p>`;
         document.getElementById("passenger-section").style.display = "none";
       }
-
-      document.getElementById("success-message").style.display = "none";
     }
+
+    let selectedTime = "";
 
     function confirmBooking() {
       const from = document.getElementById("departure").value;
       const to = document.getElementById("destination").value;
       const date = document.getElementById("date").value;
       const pax = document.getElementById("passengers").value;
-
       if (!from || !to || !date || !selectedTime || !pax) {
         alert("Please complete all fields.");
         return;
       }
-
       const msg = `✅ Booking successful!<br>You have booked a train from <strong>${from}</strong> to <strong>${to}</strong> on <strong>${date}</strong> at <strong>${selectedTime}</strong> for <strong>${pax}</strong> passenger(s).`;
       const successBox = document.getElementById("success-message");
       successBox.innerHTML = msg;
       successBox.style.display = "block";
     }
 
-    document.getElementById("language-switcher").addEventListener("change", function () {
-      const lang = this.value;
-      document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
+    // 初始化出发站选项
+    window.onload = () => {
+      const depSelect = document.getElementById("departure");
+      Object.keys(routes).forEach(station => {
+        const opt = document.createElement("option");
+        opt.value = station;
+        opt.textContent = station;
+        depSelect.appendChild(opt);
       });
-    });
+    };
   </script>
 </body>
 </html>
