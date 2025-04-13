@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KTM Contact</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fbfd;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #ffffff;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav a.active {
+      color: #2563eb;
+    }
+    select {
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    main {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    h2 {
+      text-align: center;
+      color: #1e3a8a;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .btn {
+      margin-top: 30px;
+      width: 100%;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #1d4ed8;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #777;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">KTM Malaysia</div>
+    <nav>
+      <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="首页">Home</a>
+      <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
+      <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="订票">Booking</a>
+      <a href="contact.html" class="active" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+      <select id="language-switcher">
+        <option value="en" selected>English</option>
+        <option value="ms">Bahasa Melayu</option>
+        <option value="zh">中文</option>
+      </select>
+    </nav>
+  </header>
+  <main>
+    <h2 data-en="Contact Us" data-ms="Hubungi Kami" data-zh="联系我们">Contact Us</h2>
+    <label for="name" data-en="Your Name" data-ms="Nama Anda" data-zh="您的姓名">Your Name</label>
+    <input type="text" id="name" placeholder="Enter your name" />
+
+    <label for="email" data-en="Your Email" data-ms="Emel Anda" data-zh="您的电子邮件">Your Email</label>
+    <input type="email" id="email" placeholder="Enter your email" />
+
+    <label for="message" data-en="Message" data-ms="Mesej" data-zh="留言">Message</label>
+    <textarea id="message" placeholder="Type your message here..."></textarea>
+
+    <button class="btn" data-en="Send Message" data-ms="Hantar Mesej" data-zh="发送留言">Send Message</button>
+  </main>
+  <footer>
+    © 2025 KTM Malaysia. All rights reserved.
+  </footer>
+  <script>
+    document.getElementById("language-switcher").addEventListener("change", function () {
+      const lang = this.value;
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KTM Schedule</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fbfd;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #ffffff;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav a.active {
+      color: #2563eb;
+    }
+    select {
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    h2 {
+      text-align: center;
+      color: #1e3a8a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+    }
+    th {
+      background-color: #eff6ff;
+      color: #1d4ed8;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #777;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      table {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">KTM Malaysia</div>
+    <nav>
+      <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="首页">Home</a>
+      <a href="schedule.html" class="active" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
+      <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="订票">Booking</a>
+      <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+      <select id="language-switcher">
+        <option value="en" selected>English</option>
+        <option value="ms">Bahasa Melayu</option>
+        <option value="zh">中文</option>
+      </select>
+    </nav>
+  </header>
+  <main>
+    <h2 data-en="Train Schedule" data-ms="Jadual Kereta Api" data-zh="列车时刻表">Train Schedule</h2>
+    <table>
+      <thead>
+        <tr>
+          <th data-en="Departure" data-ms="Bertolak" data-zh="出发站">Departure</th>
+          <th data-en="Destination" data-ms="Destinasi" data-zh="目的地">Destination</th>
+          <th data-en="Time" data-ms="Masa" data-zh="时间">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>KL Sentral</td>
+          <td>Ipoh</td>
+          <td>08:00 AM</td>
+        </tr>
+        <tr>
+          <td>KL Sentral</td>
+          <td>Butterworth</td>
+          <td>12:00 PM</td>
+        </tr>
+        <tr>
+          <td>KL Sentral</td>
+          <td>Gemas</td>
+          <td>06:00 PM</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <footer>
+    © 2025 KTM Malaysia. All rights reserved.
+  </footer>
+  <script>
+    document.getElementById("language-switcher").addEventListener("change", function () {
+      const lang = this.value;
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    });
+  </script>
+</body>
+</html>
