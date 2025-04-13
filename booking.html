@@ -147,71 +147,105 @@
   <main>
     <h2 data-en="Book Your Train Ticket" data-ms="Tempah Tiket Kereta Api" data-zh="预订火车票">Book Your Train Ticket</h2>
     <label for="departure" data-en="Departure Station" data-ms="Stesen Bertolak" data-zh="出发站">Departure Station</label>
-    <select id="departure">
+    <select id="departure" onchange="updateTimes()">
       <option value="">-- Select --</option>
+      <option value="Batu Caves">Batu Caves</option>
+      <option value="Sentul">Sentul</option>
       <option value="KL Sentral">KL Sentral</option>
-      <option value="Butterworth">Butterworth</option>
-      <option value="Ipoh">Ipoh</option>
+      <option value="Kajang">Kajang</option>
+      <option value="Seremban">Seremban</option>
+      <option value="Pulau Sebang">Pulau Sebang</option>
+      <option value="Mid Valley">Mid Valley</option>
     </select>
     <label for="destination" data-en="Destination Station" data-ms="Stesen Destinasi" data-zh="目的地站">Destination Station</label>
-    <select id="destination">
+    <select id="destination" onchange="updateTimes()">
       <option value="">-- Select --</option>
       <option value="KL Sentral">KL Sentral</option>
-      <option value="Butterworth">Butterworth</option>
-      <option value="Ipoh">Ipoh</option>
+      <option value="Kajang">Kajang</option>
+      <option value="Seremban">Seremban</option>
+      <option value="Pulau Sebang">Pulau Sebang</option>
+      <option value="Tanjung Malim">Tanjung Malim</option>
+      <option value="Sentul">Sentul</option>
     </select>
-    <label for="date" data-en="Travel Date" data-ms="Tarikh Perjalanan" data-zh="出发日期">Travel Date</label>
-    <input type="date" id="date" />
-    <button class="btn" onclick="showTimes()" data-en="Check Available Trains" data-ms="Semak Tren Tersedia" data-zh="查看可用列车">Check Available Trains</button>
-    <div id="train-times" class="schedule-options" style="display:none;">
-      <h3 data-en="Available Trains:" data-ms="Tren Tersedia:" data-zh="可选班次：">Available Trains:</h3>
-      <div onclick="selectTrain('8:00 AM')">8:00 AM</div>
-      <div onclick="selectTrain('12:00 PM')">12:00 PM</div>
-      <div onclick="selectTrain('6:00 PM')">6:00 PM</div>
-    </div>
+    <label for="date">Travel Date</label>
+    <input type="date" id="date">
+
+    <div class="schedule-options" id="schedule-options"></div>
+
     <div id="passenger-section" style="display:none;">
-      <label for="passengers" data-en="Number of Passengers" data-ms="Bilangan Penumpang" data-zh="乘客人数">Number of Passengers</label>
-      <input type="number" id="passengers" min="1" max="10" />
-      <button class="btn" onclick="confirmBooking()" data-en="Confirm Booking" data-ms="Sahkan Tempahan" data-zh="确认订票">Confirm Booking</button>
+      <label for="passengers">Number of Passengers</label>
+      <input type="number" id="passengers" min="1" max="10">
+      <button class="btn" onclick="confirmBooking()">Confirm Booking</button>
     </div>
-    <div id="success-message" data-en="✅ Booking successful!" data-ms="✅ Tempahan berjaya!" data-zh="✅ 预订成功！">✅ Booking successful!</div>
+
+    <div id="success-message"></div>
   </main>
   <footer>
     © 2025 KTM Malaysia. All rights reserved.
   </footer>
   <script>
-    const translations = {
-      en: {}, ms: {}, zh: {}
+    const trainTimes = {
+      "Batu Caves-KL Sentral": ["06:02 AM"],
+      "Sentul-Kajang": ["07:10 AM"],
+      "KL Sentral-Seremban": ["08:28 AM"],
+      "Kajang-KL Sentral": ["09:45 AM"],
+      "Seremban-Pulau Sebang": ["10:26 AM"],
+      "Pulau Sebang-Seremban": ["01:30 PM"],
+      "Mid Valley-Tanjung Malim": ["03:05 PM"],
+      "Batu Caves-Sentul": ["05:55 PM"]
     };
+
+    let selectedTime = "";
+
+    function updateTimes() {
+      const from = document.getElementById("departure").value;
+      const to = document.getElementById("destination").value;
+      const key = `${from}-${to}`;
+      const optionsDiv = document.getElementById("schedule-options");
+      optionsDiv.innerHTML = "";
+
+      if (trainTimes[key]) {
+        optionsDiv.innerHTML = `<p><strong>Available Trains:</strong></p>`;
+        trainTimes[key].forEach(time => {
+          const div = document.createElement("div");
+          div.textContent = time;
+          div.onclick = () => {
+            selectedTime = time;
+            document.getElementById("passenger-section").style.display = "block";
+          };
+          optionsDiv.appendChild(div);
+        });
+      } else {
+        optionsDiv.innerHTML = `<p><em>No trains found for this route.</em></p>`;
+        document.getElementById("passenger-section").style.display = "none";
+      }
+
+      document.getElementById("success-message").style.display = "none";
+    }
+
+    function confirmBooking() {
+      const from = document.getElementById("departure").value;
+      const to = document.getElementById("destination").value;
+      const date = document.getElementById("date").value;
+      const pax = document.getElementById("passengers").value;
+
+      if (!from || !to || !date || !selectedTime || !pax) {
+        alert("Please complete all fields.");
+        return;
+      }
+
+      const msg = `✅ Booking successful!<br>You have booked a train from <strong>${from}</strong> to <strong>${to}</strong> on <strong>${date}</strong> at <strong>${selectedTime}</strong> for <strong>${pax}</strong> passenger(s).`;
+      const successBox = document.getElementById("success-message");
+      successBox.innerHTML = msg;
+      successBox.style.display = "block";
+    }
+
     document.getElementById("language-switcher").addEventListener("change", function () {
       const lang = this.value;
       document.querySelectorAll('[data-en]').forEach(el => {
         el.textContent = el.getAttribute(`data-${lang}`);
       });
     });
-    function showTimes() {
-      const dep = document.getElementById("departure").value;
-      const dest = document.getElementById("destination").value;
-      const date = document.getElementById("date").value;
-      if (dep && dest && date) {
-        document.getElementById("train-times").style.display = "block";
-        document.getElementById("success-message").style.display = "none";
-      } else {
-        alert("Please select departure, destination, and date.");
-      }
-    }
-    function selectTrain(time) {
-      document.getElementById("passenger-section").style.display = "block";
-      document.getElementById("success-message").style.display = "none";
-    }
-    function confirmBooking() {
-      const passengers = document.getElementById("passengers").value;
-      if (passengers) {
-        document.getElementById("success-message").style.display = "block";
-      } else {
-        alert("Please enter number of passengers.");
-      }
-    }
   </script>
 </body>
 </html>
