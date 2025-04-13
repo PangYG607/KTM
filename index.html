@@ -73,28 +73,93 @@
       margin-top: 10px;
     }
     .hidden { display: none; }
+    header.hidden, .hero.hidden, .section.hidden, footer.hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <!-- 登录界面 -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
       <h2 id="login-title" data-en="Login to KTM" data-ms="Log Masuk KTM" data-zh="登录 KTM">Login to KTM</h2>
-      <input type="tel" id="phone" 
-             placeholder="Enter your phone number" 
-             data-en-placeholder="Enter your phone number" 
-             data-ms-placeholder="Masukkan nombor telefon" 
+      <input type="tel" id="phone" placeholder="Enter your phone number"
+             data-en-placeholder="Enter your phone number"
+             data-ms-placeholder="Masukkan nombor telefon"
              data-zh-placeholder="请输入手机号码">
       <button onclick="login()" id="login-button" data-en="Login" data-ms="Log Masuk" data-zh="登录">Login</button>
       <div id="error" class="error"></div>
     </div>
   </div>
 
-  <!-- 原来的页面内容（如导航、hero、section、footer等）继续保留在下面 -->
+  <!-- 正常页面内容 -->
+  <header class="hidden">
+    <h1>KTM Malaysia</h1>
+    <div style="display: flex; align-items: center; flex-wrap: wrap;">
+      <nav>
+        <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="主页">Home</a>
+        <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
+        <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="预订">Booking</a>
+        <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+      </nav>
+      <select class="language-select" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ms">Malay</option>
+        <option value="zh">中文</option>
+      </select>
+    </div>
+  </header>
+
+  <section class="hero hidden">
+    <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">Welcome to KTM Online Booking</h2>
+    <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
+       data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
+       data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
+       Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
+    </p>
+    <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
+  </section>
+
+  <section class="section hidden">
+    <h3 data-en="Why Choose KTM?" data-ms="Kenapa Pilih KTM?" data-zh="为什么选择KTM？">Why Choose KTM?</h3>
+    <div class="card-container">
+      <div class="card">
+        <h4 data-en="Convenient Scheduling" data-ms="Jadual Mudah" data-zh="便捷时刻表">Convenient Scheduling</h4>
+        <p data-en="View and select train times with multilingual support and real-time updates."
+           data-ms="Lihat dan pilih masa kereta api dengan sokongan pelbagai bahasa dan kemas kini masa sebenar."
+           data-zh="支持多语言和实时更新，轻松查看并选择列车时间。">
+           View and select train times with multilingual support and real-time updates.
+        </p>
+      </div>
+      <div class="card">
+        <h4 data-en="Easy Booking" data-ms="Tempahan Mudah" data-zh="轻松预订">Easy Booking</h4>
+        <p data-en="Book your tickets seamlessly. Simple and user-friendly interface."
+           data-ms="Tempah tiket anda dengan mudah. Antaramuka yang ringkas dan mesra pengguna."
+           data-zh="无缝预订车票，界面简洁易用。">
+           Book your tickets seamlessly. Simple and user-friendly interface.
+        </p>
+      </div>
+      <div class="card">
+        <h4 data-en="Responsive Design" data-ms="Reka Bentuk Responsif" data-zh="响应式设计">Responsive Design</h4>
+        <p data-en="Enjoy a smooth experience on all devices, desktop and mobile."
+           data-ms="Nikmati pengalaman yang lancar pada semua peranti, komputer dan mudah alih."
+           data-zh="在所有设备上享受流畅体验，桌面与移动端皆适用。">
+           Enjoy a smooth experience on all devices, desktop and mobile.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="hidden">
+    &copy; 2025 KTM Malaysia. All rights reserved.
+  </footer>
 
   <script>
     function setLanguage(lang) {
       document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
+        if (el.hasAttribute(`data-${lang}`)) {
+          el.textContent = el.getAttribute(`data-${lang}`);
+        }
       });
       const phoneInput = document.getElementById("phone");
       if (phoneInput) {
