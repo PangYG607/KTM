@@ -135,22 +135,39 @@
 
     .hero {
       background: linear-gradient(to right, #e3f2fd, #d1ecff);
-      text-align: center;
-      padding: 80px 10%;
+      padding: 60px 10%;
     }
 
-    .hero h2 {
+    .hero-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .hero-text {
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .hero-gif {
+      width: 180px;
+      height: auto;
+    }
+
+    .hero-text h2 {
       font-size: 36px;
       color: var(--primary);
       margin-bottom: 20px;
     }
 
-    .hero p {
+    .hero-text p {
       font-size: 18px;
       margin-bottom: 30px;
     }
 
-    .hero button {
+    .hero-text button {
       background-color: var(--primary);
       color: white;
       padding: 12px 24px;
@@ -161,7 +178,7 @@
       transition: background-color 0.3s;
     }
 
-    .hero button:hover {
+    .hero-text button:hover {
       background-color: #0043ce;
     }
 
@@ -235,32 +252,14 @@
       .card-container {
         flex-direction: column;
       }
-    .hero-container {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-wrap: wrap;
-		gap: 40px;
-		}
-
-	.hero-text {
-		max-width: 500px;
-		text-align: left;
-		}
-
-	.hero-gif {
-		width: 180px;
-		height: auto;
-		}
-	}
-  
+    }
   </style>
 </head>
 <body>
   <!-- 登录界面 -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
-      <h2>Login  to KTM</h2>
+      <h2>Login to KTM</h2>
       <input type="tel" id="phone" placeholder="Please enter your phone number">
       <button onclick="login()">Login</button>
       <div id="error" class="error"></div>
@@ -286,21 +285,21 @@
   </header>
 
   <section class="hero">
-  <div class="hero-container">
-    <img src="img/train-animation.gif" alt="Train animation" class="hero-gif">
-    <div class="hero-text">
-      <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">
-        Welcome to KTM Online Booking
-      </h2>
-      <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
-         data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
-         data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
-         Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
-      </p>
-      <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
+    <div class="hero-container">
+      <img src="Train1.gif" alt="Train animation" class="hero-gif">
+      <div class="hero-text">
+        <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">
+          Welcome to KTM Online Booking
+        </h2>
+        <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
+           data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
+           data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
+           Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
+        </p>
+        <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <section class="section">
     <h3 data-en="Why Choose KTM?" data-ms="Kenapa Pilih KTM?" data-zh="为什么选择KTM？">Why Choose KTM?</h3>
