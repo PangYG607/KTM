@@ -96,14 +96,19 @@
   </header>
   <main>
     <h2 data-en="Train Schedule" data-ms="Jadual Kereta Api" data-zh="列车时刻表">Train Schedule</h2>
-    <p style="text-align:center; color:#555;">The table below shows popular train routes with departure and arrival times.</p>
+    <p id="desc" data-en="The table below shows popular train routes with departure and arrival times."
+       data-ms="Jadual di bawah menunjukkan laluan popular dengan masa bertolak dan tiba."
+       data-zh="下表显示热门列车路线的出发和到达时间。"
+       style="text-align:center; color:#555;">
+       The table below shows popular train routes with departure and arrival times.
+    </p>
     <table>
       <thead>
         <tr>
-          <th>From</th>
-          <th>To</th>
-          <th>Departure</th>
-          <th>Arrival</th>
+          <th data-en="From" data-ms="Dari" data-zh="出发站">From</th>
+          <th data-en="To" data-ms="Ke" data-zh="目的地">To</th>
+          <th data-en="Departure" data-ms="Bertolak" data-zh="出发时间">Departure</th>
+          <th data-en="Arrival" data-ms="Tiba" data-zh="到达时间">Arrival</th>
         </tr>
       </thead>
       <tbody>
@@ -127,7 +132,8 @@
     document.getElementById("language-switcher").addEventListener("change", function () {
       const lang = this.value;
       document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) el.textContent = text;
       });
     });
   </script>
