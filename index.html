@@ -64,6 +64,71 @@
     header, main, footer {
       display: none;
     }
+    header {
+      background-color: #ffffff;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav a.active {
+      color: #2563eb;
+    }
+    select {
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #1e3a8a;
+      font-size: 2.2em;
+    }
+    p {
+      font-size: 1.1em;
+      color: #444;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #777;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -77,15 +142,30 @@
     </div>
   </div>
 
-  <!-- Real Page Content -->
+  <!-- Full Website Content -->
   <header>
-    <div style="padding: 20px; background-color: #2563eb; color: white; font-size: 24px;">KTM Malaysia</div>
+    <div class="logo">KTM Malaysia</div>
+    <nav>
+      <a href="index.html" class="active" data-en="Home" data-ms="Laman Utama" data-zh="首页">Home</a>
+      <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
+      <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="订票">Booking</a>
+      <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+      <select id="language-switcher">
+        <option value="en" selected>English</option>
+        <option value="ms">Bahasa Melayu</option>
+        <option value="zh">中文</option>
+      </select>
+    </nav>
   </header>
-  <main style="padding: 40px; text-align: center;">
-    <h1>Welcome to KTM</h1>
-    <p>Explore booking, schedule, and more.</p>
+  <main>
+    <h1 data-en="Welcome to KTM Malaysia" data-ms="Selamat datang ke KTM Malaysia" data-zh="欢迎来到马来西亚国家铁路">Welcome to KTM Malaysia</h1>
+    <p data-en="Malaysia's leading railway transportation service." data-ms="Perkhidmatan pengangkutan kereta api utama Malaysia." data-zh="马来西亚领先的铁路运输服务。">
+      Malaysia's leading railway transportation service.
+    </p>
   </main>
-  <footer style="text-align:center; padding: 30px; color: #777;">© 2025 KTM Malaysia. All rights reserved.</footer>
+  <footer>
+    © 2025 KTM Malaysia. All rights reserved.
+  </footer>
 
   <script>
     function login() {
@@ -97,11 +177,18 @@
         errorDiv.textContent = "Please enter a valid Malaysian phone number (e.g., 012-3456789).";
       } else {
         document.getElementById("loginScreen").style.display = "none";
-        document.querySelector("header").style.display = "block";
+        document.querySelector("header").style.display = "flex";
         document.querySelector("main").style.display = "block";
         document.querySelector("footer").style.display = "block";
       }
     }
+
+    document.getElementById("language-switcher").addEventListener("change", function () {
+      const lang = this.value;
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    });
   </script>
 </body>
 </html>
