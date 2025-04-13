@@ -45,13 +45,12 @@
       border-radius: 5px;
     }
     main {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 40px auto;
       background: white;
       border-radius: 12px;
       padding: 30px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      overflow-x: auto;
     }
     h2 {
       text-align: center;
@@ -72,20 +71,11 @@
       background-color: #eff6ff;
       color: #1d4ed8;
     }
-    td.tick::before {
-      content: "✔";
-      color: green;
-    }
     footer {
       text-align: center;
       padding: 30px;
       font-size: 14px;
       color: #777;
-    }
-    @media (max-width: 768px) {
-      table {
-        font-size: 13px;
-      }
     }
   </style>
 </head>
@@ -106,34 +96,27 @@
   </header>
   <main>
     <h2 data-en="Train Schedule" data-ms="Jadual Kereta Api" data-zh="列车时刻表">Train Schedule</h2>
+    <p style="text-align:center; color:#555;">The table below shows popular train routes with departure and arrival times.</p>
     <table>
       <thead>
         <tr>
-          <th>Time</th>
-          <th>KL Sentral</th>
-          <th>Kajang</th>
-          <th>UKM</th>
-          <th>Nilai</th>
-          <th>Seremban</th>
-          <th>Sungai Gadut</th>
-          <th>Pulau Sebang</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Departure</th>
+          <th>Arrival</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>05:55</td><td class="tick"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>06:19</td><td></td><td class="tick"></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>06:32</td><td></td><td></td><td class="tick"></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>06:45</td><td></td><td></td><td></td><td class="tick"></td><td></td><td></td><td></td></tr>
-        <tr><td>07:00</td><td class="tick"></td><td></td><td></td><td></td><td class="tick"></td><td></td><td></td></tr>
-        <tr><td>07:10</td><td></td><td class="tick"></td><td></td><td></td><td></td><td class="tick"></td><td></td></tr>
-        <tr><td>07:30</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="tick"></td></tr>
-        <tr><td>08:07</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="tick"></td></tr>
-        <tr><td>09:03</td><td class="tick"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>10:05</td><td class="tick"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>13:45</td><td class="tick"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>16:56</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="tick"></td></tr>
-        <tr><td>18:00</td><td class="tick"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>21:46</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="tick"></td></tr>
+        <tr><td>KL Sentral</td><td>Kajang</td><td>06:33</td><td>06:56</td></tr>
+        <tr><td>KL Sentral</td><td>UKM</td><td>07:00</td><td>07:38</td></tr>
+        <tr><td>KL Sentral</td><td>Seremban</td><td>07:45</td><td>08:51</td></tr>
+        <tr><td>KL Sentral</td><td>Pulau Sebang</td><td>09:03</td><td>10:39</td></tr>
+        <tr><td>Kajang</td><td>Seremban</td><td>10:30</td><td>11:11</td></tr>
+        <tr><td>Kajang</td><td>Pulau Sebang</td><td>13:15</td><td>14:26</td></tr>
+        <tr><td>UKM</td><td>Seremban</td><td>13:28</td><td>14:51</td></tr>
+        <tr><td>Seremban</td><td>Pulau Sebang</td><td>14:51</td><td>15:21</td></tr>
+        <tr><td>KL Sentral</td><td>Pulau Sebang</td><td>17:00</td><td>18:36</td></tr>
+        <tr><td>KL Sentral</td><td>Pulau Sebang</td><td>21:30</td><td>23:06</td></tr>
       </tbody>
     </table>
   </main>
