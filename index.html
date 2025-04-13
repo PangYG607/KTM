@@ -12,19 +12,16 @@
       --bg-light: #f4f7fb;
       --text-dark: #1a1a1a;
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
-
     body {
       background-color: var(--bg-light);
       color: var(--text-dark);
     }
-
     .login-screen {
       position: fixed;
       top: 0;
@@ -37,7 +34,6 @@
       align-items: center;
       z-index: 999;
     }
-
     .login-box {
       background: white;
       padding: 40px;
@@ -47,12 +43,10 @@
       width: 100%;
       text-align: center;
     }
-
     .login-box h2 {
       color: var(--primary);
       margin-bottom: 25px;
     }
-
     .login-box input {
       width: 100%;
       padding: 14px;
@@ -61,7 +55,6 @@
       border-radius: 8px;
       margin-bottom: 20px;
     }
-
     .login-box button {
       width: 100%;
       padding: 14px;
@@ -72,21 +65,13 @@
       font-size: 16px;
       cursor: pointer;
     }
-
     .login-box button:hover {
       background-color: #0043ce;
     }
-
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
-
+    .error { color: red; margin-top: 10px; }
     .hidden { display: none; }
 
-    header, .hero, .section, footer {
-      display: none;
-    }
+    header, .hero, .section, footer { display: none; }
 
     header {
       background-color: #ffffff;
@@ -100,19 +85,16 @@
       z-index: 999;
       flex-wrap: wrap;
     }
-
     header h1 {
       color: var(--primary);
       font-weight: 700;
       font-size: 24px;
       white-space: nowrap;
     }
-
     nav {
       display: flex;
       flex-wrap: wrap;
     }
-
     nav a {
       margin: 0 15px;
       text-decoration: none;
@@ -121,11 +103,9 @@
       transition: color 0.3s;
       white-space: nowrap;
     }
-
     nav a:hover {
       color: var(--primary);
     }
-
     .language-select {
       margin-left: 20px;
       padding: 6px;
@@ -134,69 +114,58 @@
     }
 
     .hero {
-  background: linear-gradient(to right, #e3f2fd, #d1ecff);
-  padding: 60px 10%;
-}
-
-.hero-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-.hero-gif {
-  width: 180px;
-  height: auto;
-}
-
-.hero-text {
-  max-width: 500px;
-}
-
-.hero-text h2 {
-  font-size: 32px;
-  color: var(--primary);
-  margin-bottom: 20px;
-}
-
-.hero-text p {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.hero-text button {
-  background-color: var(--primary);
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.hero-text button:hover {
-  background-color: #0043ce;
-}
-
+      background: linear-gradient(to right, #e3f2fd, #d1ecff);
+      padding: 60px 10%;
+    }
+    .hero-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .hero-gif {
+      width: 180px;
+      height: auto;
+    }
+    .hero-text {
+      max-width: 500px;
+    }
+    .hero-text h2 {
+      font-size: 32px;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .hero-text p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .hero-text button {
+      background-color: var(--primary);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .hero-text button:hover {
+      background-color: #0043ce;
+    }
 
     .section {
       padding: 60px 10%;
     }
-
     .section h3 {
       font-size: 28px;
       color: var(--primary);
       margin-bottom: 30px;
     }
-
     .card-container {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
     }
-
     .card {
       background-color: #ffffff;
       border-left: 5px solid var(--primary);
@@ -206,12 +175,10 @@
       border-radius: 10px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.05);
     }
-
     .card h4 {
       color: var(--primary);
       margin-bottom: 10px;
     }
-
     footer {
       background-color: #ffffff;
       text-align: center;
@@ -222,35 +189,12 @@
     }
 
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav {
-        flex-direction: column;
-        margin-top: 10px;
-      }
-
-      nav a {
-        margin: 5px 0;
-      }
-
-      .hero h2 {
-        font-size: 28px;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .hero {
-        padding: 40px 5%;
-      }
-
-      .card-container {
-        flex-direction: column;
-      }
+      header { flex-direction: column; align-items: flex-start; }
+      nav { flex-direction: column; margin-top: 10px; }
+      nav a { margin: 5px 0; }
+      .hero { padding: 40px 5%; }
+      .hero-container { flex-direction: column; }
+      .card-container { flex-direction: column; }
     }
   </style>
 </head>
@@ -258,7 +202,7 @@
   <!-- 登录界面 -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
-      <h2>Login  to KTM</h2>
+      <h2>Login to KTM</h2>
       <input type="tel" id="phone" placeholder="Please enter your phone number">
       <button onclick="login()">Login</button>
       <div id="error" class="error"></div>
@@ -284,21 +228,21 @@
   </header>
 
   <section class="hero">
-  <div class="hero-container">
-    <img src="img/train-animation.gif" alt="Train animation" class="hero-gif">
-    <div class="hero-text">
-      <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">
-        Welcome to KTM Online Booking
-      </h2>
-      <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
-         data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
-         data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
-         Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
-      </p>
-      <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
+    <div class="hero-container">
+      <img src="Train1.gif" alt="Train animation" class="hero-gif">
+      <div class="hero-text">
+        <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">
+          Welcome to KTM Online Booking
+        </h2>
+        <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
+           data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
+           data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
+           Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
+        </p>
+        <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <section class="section">
     <h3 data-en="Why Choose KTM?" data-ms="Kenapa Pilih KTM?" data-zh="为什么选择KTM？">Why Choose KTM?</h3>
@@ -344,7 +288,7 @@
     function login() {
       const phone = document.getElementById("phone").value;
       const errorDiv = document.getElementById("error");
-      const phoneRegex = /^01\d{1}-?\d{7,8}$/;
+      const phoneRegex = /^01\\d{1}-?\\d{7,8}$/;
 
       if (!phoneRegex.test(phone)) {
         errorDiv.textContent = "请输入有效的马来西亚手机号码（如：012-3456789）";
