@@ -12,19 +12,16 @@
       --bg-light: #f4f7fb;
       --text-dark: #1a1a1a;
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
-
     body {
       background-color: var(--bg-light);
       color: var(--text-dark);
     }
-
     .login-screen {
       position: fixed;
       top: 0;
@@ -37,7 +34,6 @@
       align-items: center;
       z-index: 999;
     }
-
     .login-box {
       background: white;
       padding: 40px;
@@ -47,12 +43,10 @@
       width: 100%;
       text-align: center;
     }
-
     .login-box h2 {
       color: var(--primary);
       margin-bottom: 25px;
     }
-
     .login-box input {
       width: 100%;
       padding: 14px;
@@ -61,7 +55,6 @@
       border-radius: 8px;
       margin-bottom: 20px;
     }
-
     .login-box button {
       width: 100%;
       padding: 14px;
@@ -72,81 +65,62 @@
       font-size: 16px;
       cursor: pointer;
     }
-
     .login-box button:hover {
       background-color: #0043ce;
     }
-
     .error {
       color: red;
       margin-top: 10px;
     }
-
     .hidden { display: none; }
-
-    header, .hero, .section, footer {
-      display: none;
-    }
-
-    /* 原本页面样式保持不变...（此处省略未改部分） */
   </style>
 </head>
 <body>
-  <!-- 登录界面 -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
-      <h2 data-en="Login to KTM" data-ms="Log Masuk KTM" data-zh="登录 KTM">Login to KTM</h2>
+      <h2 id="login-title" data-en="Login to KTM" data-ms="Log Masuk KTM" data-zh="登录 KTM">Login to KTM</h2>
       <input type="tel" id="phone" 
              placeholder="Enter your phone number" 
              data-en-placeholder="Enter your phone number" 
              data-ms-placeholder="Masukkan nombor telefon" 
              data-zh-placeholder="请输入手机号码">
-      <button onclick="login()" 
-              data-en="Login" data-ms="Log Masuk" data-zh="登录">Login</button>
+      <button onclick="login()" id="login-button" data-en="Login" data-ms="Log Masuk" data-zh="登录">Login</button>
       <div id="error" class="error"></div>
     </div>
   </div>
 
-  <!-- 你的其他页面内容保留不变... -->
+  <!-- 原来的页面内容（如导航、hero、section、footer等）继续保留在下面 -->
 
   <script>
     function setLanguage(lang) {
-      document.querySelectorAll("[data-en]").forEach(el => {
-        if (el.hasAttribute(`data-${lang}`)) {
-          el.textContent = el.getAttribute(`data-${lang}`);
-        }
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
       });
-
-      // 登录输入框 placeholder 也切换
       const phoneInput = document.getElementById("phone");
       if (phoneInput) {
         phoneInput.placeholder = phoneInput.getAttribute(`data-${lang}-placeholder`);
       }
-
-      // 清空错误提示（避免语言不一致）
       document.getElementById("error").textContent = "";
     }
 
     function login() {
       const phone = document.getElementById("phone").value;
       const errorDiv = document.getElementById("error");
-      const lang = document.querySelector(".language-select").value;
+      const lang = document.querySelector(".language-select")?.value || 'en';
       const phoneRegex = /^01\d{1}-?\d{7,8}$/;
-
       const messages = {
         en: "Please enter a valid Malaysian phone number (e.g., 012-3456789).",
         ms: "Sila masukkan nombor telefon Malaysia yang sah (cth: 012-3456789).",
         zh: "请输入有效的马来西亚手机号码（如：012-3456789）"
       };
-
       if (!phoneRegex.test(phone)) {
         errorDiv.textContent = messages[lang];
       } else {
         document.getElementById("loginScreen").classList.add("hidden");
-        document.querySelector("header").style.display = "flex";
-        document.querySelector(".hero").style.display = "block";
-        document.querySelector(".section").style.display = "block";
-        document.querySelector("footer").style.display = "block";
+        document.querySelector("header")?.classList.remove("hidden");
+        document.querySelector(".hero")?.classList.remove("hidden");
+        document.querySelector(".section")?.classList.remove("hidden");
+        document.querySelector("footer")?.classList.remove("hidden");
       }
     }
   </script>
