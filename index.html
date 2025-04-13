@@ -1,247 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KTM Malaysia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --primary: #0f62fe;
-      --secondary: #33ccff;
-      --bg-light: #f4f7fb;
-      --text-dark: #1a1a1a;
-    }
-
-    * {
+    body {
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4f8;
     }
-
-    body {
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-    }
-
-    header {
-      background-color: #ffffff;
-      padding: 20px 10%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: sticky;
+    .login-screen {
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
       z-index: 999;
-      flex-wrap: wrap;
-    }
-
-    header h1 {
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 24px;
-      white-space: nowrap;
-    }
-
-    nav {
       display: flex;
-      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
     }
-
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      transition: color 0.3s;
-      white-space: nowrap;
-    }
-
-    nav a:hover {
-      color: var(--primary);
-    }
-
-    .language-select {
-      margin-left: 20px;
-      padding: 6px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .hero {
-      background: linear-gradient(to right, #e3f2fd, #d1ecff);
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
       text-align: center;
-      padding: 80px 10%;
     }
-
-    .hero h2 {
-      font-size: 36px;
-      color: var(--primary);
+    .login-box h2 {
+      color: #1e3a8a;
+      margin-bottom: 25px;
+    }
+    input[type="tel"] {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       margin-bottom: 20px;
     }
-
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .hero button {
-      background-color: var(--primary);
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #2563eb;
       color: white;
-      padding: 12px 24px;
       border: none;
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
-
-    .hero button:hover {
-      background-color: #0043ce;
+    .btn:hover {
+      background-color: #1e40af;
     }
-
-    .section {
-      padding: 60px 10%;
+    .error {
+      color: red;
+      margin-top: 10px;
     }
-
-    .section h3 {
-      font-size: 28px;
-      color: var(--primary);
-      margin-bottom: 30px;
-    }
-
-    .card-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      background-color: #ffffff;
-      border-left: 5px solid var(--primary);
-      flex: 1;
-      min-width: 250px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    }
-
-    .card h4 {
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-
-    footer {
-      background-color: #ffffff;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #666;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav {
-        flex-direction: column;
-        margin-top: 10px;
-      }
-
-      nav a {
-        margin: 5px 0;
-      }
-
-      .hero h2 {
-        font-size: 28px;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .hero {
-        padding: 40px 5%;
-      }
-
-      .card-container {
-        flex-direction: column;
-      }
+    header, main, footer {
+      display: none;
     }
   </style>
 </head>
 <body>
+  <!-- Login Screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h2>Login to KTM</h2>
+      <input type="tel" id="phone" placeholder="Enter your phone number">
+      <button class="btn" onclick="login()">Login</button>
+      <div id="error" class="error"></div>
+    </div>
+  </div>
+
+  <!-- Real Page Content -->
   <header>
-    <h1>KTM Malaysia</h1>
-    <div style="display: flex; align-items: center; flex-wrap: wrap;">
-      <nav>
-        <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="主页">Home</a>
-        <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
-        <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="预订">Booking</a>
-        <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
-      </nav>
-      <select class="language-select" onchange="setLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="ms">Malay</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
+    <div style="padding: 20px; background-color: #2563eb; color: white; font-size: 24px;">KTM Malaysia</div>
   </header>
-
-  <section class="hero">
-    <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">Welcome to KTM Online Booking</h2>
-    <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
-       data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
-       data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
-       Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
-    </p>
-    <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
-  </section>
-
-  <section class="section">
-    <h3 data-en="Why Choose KTM?" data-ms="Kenapa Pilih KTM?" data-zh="为什么选择KTM？">Why Choose KTM?</h3>
-    <div class="card-container">
-      <div class="card">
-        <h4 data-en="Convenient Scheduling" data-ms="Jadual Mudah" data-zh="便捷时刻表">Convenient Scheduling</h4>
-        <p data-en="View and select train times with multilingual support and real-time updates."
-           data-ms="Lihat dan pilih masa kereta api dengan sokongan pelbagai bahasa dan kemas kini masa sebenar."
-           data-zh="支持多语言和实时更新，轻松查看并选择列车时间。">
-           View and select train times with multilingual support and real-time updates.
-        </p>
-      </div>
-      <div class="card">
-        <h4 data-en="Easy Booking" data-ms="Tempahan Mudah" data-zh="轻松预订">Easy Booking</h4>
-        <p data-en="Book your tickets seamlessly. Simple and user-friendly interface."
-           data-ms="Tempah tiket anda dengan mudah. Antaramuka yang ringkas dan mesra pengguna."
-           data-zh="无缝预订车票，界面简洁易用。">
-           Book your tickets seamlessly. Simple and user-friendly interface.
-        </p>
-      </div>
-      <div class="card">
-        <h4 data-en="Responsive Design" data-ms="Reka Bentuk Responsif" data-zh="响应式设计">Responsive Design</h4>
-        <p data-en="Enjoy a smooth experience on all devices, desktop and mobile."
-           data-ms="Nikmati pengalaman yang lancar pada semua peranti, komputer dan mudah alih."
-           data-zh="在所有设备上享受流畅体验，桌面与移动端皆适用。">
-           Enjoy a smooth experience on all devices, desktop and mobile.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    &copy; 2025 KTM Malaysia. All rights reserved.
-  </footer>
+  <main style="padding: 40px; text-align: center;">
+    <h1>Welcome to KTM</h1>
+    <p>Explore booking, schedule, and more.</p>
+  </main>
+  <footer style="text-align:center; padding: 30px; color: #777;">© 2025 KTM Malaysia. All rights reserved.</footer>
 
   <script>
-    function setLanguage(lang) {
-      document.querySelectorAll("[data-en]").forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
-      });
+    function login() {
+      const phone = document.getElementById("phone").value;
+      const errorDiv = document.getElementById("error");
+      const phoneRegex = /^01\d{1}-?\d{7,8}$/;
+
+      if (!phoneRegex.test(phone)) {
+        errorDiv.textContent = "Please enter a valid Malaysian phone number (e.g., 012-3456789).";
+      } else {
+        document.getElementById("loginScreen").style.display = "none";
+        document.querySelector("header").style.display = "block";
+        document.querySelector("main").style.display = "block";
+        document.querySelector("footer").style.display = "block";
+      }
     }
   </script>
 </body>
