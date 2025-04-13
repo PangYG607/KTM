@@ -134,31 +134,35 @@
     }
 
     .hero {
+      position: relative;
       background: linear-gradient(to right, #e3f2fd, #d1ecff);
-      padding: 60px 10%;
-    }
-
-    .hero-container {
+      height: 400px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 40px;
+      overflow: hidden;
+    }
+
+    .hero img.hero-gif {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
     }
 
     .hero-text {
-      max-width: 500px;
-      text-align: left;
-    }
-
-    .hero-gif {
-      width: 180px;
-      height: auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      padding: 20px;
     }
 
     .hero-text h2 {
       font-size: 36px;
-      color: var(--primary);
       margin-bottom: 20px;
     }
 
@@ -237,26 +241,21 @@
         margin: 5px 0;
       }
 
-      .hero h2 {
+      .card-container {
+        flex-direction: column;
+      }
+
+      .hero-text h2 {
         font-size: 28px;
       }
 
-      .hero p {
+      .hero-text p {
         font-size: 16px;
-      }
-
-      .hero {
-        padding: 40px 5%;
-      }
-
-      .card-container {
-        flex-direction: column;
       }
     }
   </style>
 </head>
 <body>
-  <!-- 登录界面 -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
       <h2>Login to KTM</h2>
@@ -266,7 +265,6 @@
     </div>
   </div>
 
-  <!-- 正常页面内容 -->
   <header>
     <h1>KTM Malaysia</h1>
     <div style="display: flex; align-items: center; flex-wrap: wrap;">
@@ -285,19 +283,17 @@
   </header>
 
   <section class="hero">
-    <div class="hero-container">
-      <img src="Train1.gif" alt="Train animation" class="hero-gif">
-      <div class="hero-text">
-        <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">
-          Welcome to KTM Online Booking
-        </h2>
-        <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
-           data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
-           data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
-           Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
-        </p>
-        <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
-      </div>
+    <img src="Train1.gif" alt="Train animation" class="hero-gif">
+    <div class="hero-text">
+      <h2 data-en="Welcome to KTM Online Booking" data-ms="Selamat datang ke Tempahan KTM" data-zh="欢迎使用KTM在线订票">
+        Welcome to KTM Online Booking
+      </h2>
+      <p data-en="Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere."
+         data-ms="Rancang perjalanan kereta api anda dengan mudah. Pantas, responsif, dan selamat — bila-bila masa, di mana-mana."
+         data-zh="轻松规划您的火车行程。快速、响应迅速且安全 — 随时随地。">
+         Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.
+      </p>
+      <button onclick="location.href='booking.html'" data-en="Book Now" data-ms="Tempah Sekarang" data-zh="立即预订">Book Now</button>
     </div>
   </section>
 
@@ -352,7 +348,7 @@
       } else {
         document.getElementById("loginScreen").classList.add("hidden");
         document.querySelector("header").style.display = "flex";
-        document.querySelector(".hero").style.display = "block";
+        document.querySelector(".hero").style.display = "flex";
         document.querySelector(".section").style.display = "block";
         document.querySelector("footer").style.display = "block";
       }
