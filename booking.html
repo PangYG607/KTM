@@ -5,6 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KTM Booking</title>
+  <script>
+  if (!localStorage.getItem("ktmLoggedIn")) {
+    alert("Please login first.");
+    window.location.href = "index.html";
+  }
+</script>
+
   <style>
     body { font-family: 'Segoe UI', sans-serif; background-color: #f9fbfd; margin: 0; padding: 0; }
     header { background-color: #ffffff; padding: 15px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
