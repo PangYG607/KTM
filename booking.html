@@ -55,12 +55,16 @@
   }
 
   /* ========== 语言选择下拉框 ========== */
-  select.language {
-    padding: 5px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    width: 150px; /* 防止拉太宽 */
-    margin-left: auto;
+select.language,
+.language-select {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  max-width: 200px;
+  width: auto;
+  margin-left: auto;
+}
+
   }
 
   /* ========== 主内容 main ========== */
@@ -190,7 +194,6 @@
     margin-left: auto;
   }
 </style>
-
 </head>
 <body>
 <header>
