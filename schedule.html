@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KTM Schedule</title>
   <script>
     if (!localStorage.getItem("ktmLoggedIn")) {
@@ -13,13 +13,14 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9fbfd;
       margin: 0;
       padding: 0;
+      background: url('img/Train2.jpg') no-repeat center center fixed;
+      background-size: cover;
     }
 
     header {
-      background-color: #ffffff;
+      background-color: #ffffffcc;
       padding: 15px 40px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       display: flex;
@@ -62,17 +63,9 @@
       margin: 40px auto;
       padding: 30px;
       border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
-
-    .banner-img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     h2 {
@@ -103,6 +96,7 @@
       padding: 30px;
       font-size: 14px;
       color: #777;
+      background-color: #ffffffcc;
     }
   </style>
 </head>
@@ -123,9 +117,6 @@
   </header>
 
   <main>
-    <!-- Banner Photo -->
-    <img src="Train2.jpg" alt="Train Photo" class="banner-img">
-
     <h2 data-en="Train Schedule" data-ms="Jadual Kereta Api" data-zh="列车时刻表">Train Schedule</h2>
     <p id="desc" data-en="The table below shows popular train routes with departure and arrival times."
        data-ms="Jadual di bawah menunjukkan laluan popular dengan masa bertolak dan tiba."
@@ -133,7 +124,6 @@
        style="text-align:center; color:#555;">
        The table below shows popular train routes with departure and arrival times.
     </p>
-
     <table>
       <thead>
         <tr>
