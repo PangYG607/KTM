@@ -10,64 +10,187 @@
       window.location.href = "index.html";
     }
   </script>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f9fbfd; margin: 0; padding: 0; }
-    header { background-color: #ffffff; padding: 15px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-    .logo { font-size: 22px; font-weight: bold; color: #2563eb; }
-    nav { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
-    nav a { text-decoration: none; color: #333; font-weight: 500; }
-    nav a.active { color: #2563eb; }
-    select.language { padding: 5px 10px; font-size: 14px; border-radius: 5px; }
-    main { max-width: 600px; margin: 40px auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    h2 { text-align: center; color: #1e3a8a; }
-    label { display: block; margin-top: 20px; font-weight: 500; }
-    input, select { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
-    .btn { margin-top: 30px; width: 100%; background-color: #2563eb; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; }
-    .btn:hover { background-color: #1d4ed8; }
-    .schedule-options { margin-top: 25px; }
-    .schedule-options div { padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-top: 10px; cursor: pointer; transition: all 0.2s; }
-    .schedule-options div:hover { background-color: #e0f2fe; border-color: #3b82f6; }
-    #success-message { display: none; margin-top: 20px; padding: 15px; background-color: #d1fae5; color: #065f46; border-radius: 8px; font-weight: bold; text-align: center; }
-    footer { text-align: center; padding: 30px; font-size: 14px; color: #777; }
-    @media (max-width: 768px) {
-      header { flex-direction: column; align-items: flex-start; }
-      nav { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 10px; }
-    }
-	.menu-toggle {
-  display: none;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: auto;
-}
+ <style>
+  /* ========== 全局设置 ========== */
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9fbfd;
+    margin: 0;
+    padding: 0;
+  }
 
-@media (max-width: 768px) {
+  /* ========== 页眉 header ========== */
   header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  nav {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  nav.show {
+    background-color: #ffffff;
+    padding: 15px 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2563eb;
+  }
+
+  /* ========== 导航栏 nav ========== */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
   }
 
   nav a {
-    margin: 10px 0;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
   }
-}
-  </style>
+
+  nav a.active {
+    color: #2563eb;
+  }
+
+  /* ========== 语言选择下拉框 ========== */
+  select.language {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 150px; /* 防止拉太宽 */
+    margin-left: auto;
+  }
+
+  /* ========== 主内容 main ========== */
+  main {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  h2 {
+    text-align: center;
+    color: #1e3a8a;
+  }
+
+  label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 500;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  /* ========== 按钮 ========== */
+  .btn {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #1d4ed8;
+  }
+
+  /* ========== 时刻表选项块 ========== */
+  .schedule-options {
+    margin-top: 25px;
+  }
+
+  .schedule-options div {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .schedule-options div:hover {
+    background-color: #e0f2fe;
+    border-color: #3b82f6;
+  }
+
+  /* ========== 成功提示框 ========== */
+  #success-message {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #d1fae5;
+    color: #065f46;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* ========== 页脚 footer ========== */
+  footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 14px;
+    color: #777;
+  }
+
+  /* ========== 响应式布局 ========== */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 10px;
+      display: none;
+      width: 100%;
+    }
+
+    nav.show {
+      display: flex;
+    }
+
+    nav a {
+      margin: 10px 0;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+  }
+
+  /* ========== 菜单按钮 (汉堡按钮) ========== */
+  .menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+  }
+</style>
+
 </head>
 <body>
 <header>
