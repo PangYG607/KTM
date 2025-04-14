@@ -348,7 +348,10 @@
       if (!phoneRegex.test(phone)) {
         errorDiv.textContent = "Please enter a valid Malaysian phone number (e.g. 012-3456789)";
       } else {
-        document.getElementById("loginScreen").classList.add("hidden");
+        
+		localStorage.setItem("ktmLoggedIn", "true");
+		
+		document.getElementById("loginScreen").classList.add("hidden");
         document.querySelector("header").style.display = "flex";
         document.querySelector(".hero").style.display = "flex";
         document.querySelector(".section").style.display = "block";
