@@ -115,23 +115,63 @@
       font-size: 14px;
       color: #777;
     }
+	.menu-toggle {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  nav a {
+    margin: 10px 0;
+  }
+}
+
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">KTM Malaysia</div>
-    <nav>
-      <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="首页">Home</a>
-      <a href="schedule.html" class="active" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
-      <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="订票">Booking</a>
-      <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
-      <select id="language-switcher">
-        <option value="en" selected>English</option>
-        <option value="ms">Bahasa Melayu</option>
-        <option value="zh">中文</option>
-      </select>
+<header>
+  <h1>KTM Malaysia</h1>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <div style="display: flex; align-items: center; flex-wrap: wrap; width: 100%;">
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="booking.html">Booking</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" onclick="logout()" style="color:red;">Logout</a>
     </nav>
-  </header>
+    <select class="language-select" onchange="setLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="ms">Malay</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
+</header>
+
 
   <main>
     <h2 data-en="Train Schedule" data-ms="Jadual Kereta Api" data-zh="列车时刻表">Train Schedule</h2>
@@ -177,6 +217,10 @@
         if (text) el.textContent = text;
       });
     });
+	function toggleMenu() {
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("show");
+}
   </script>
 </body>
 </html>
