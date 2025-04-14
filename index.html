@@ -275,6 +275,7 @@
         <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
         <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="预订">Booking</a>
         <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+		<a href="#" onclick="logout()" style="color:red;" data-en="Logout" data-ms="Log Keluar" data-zh="登出">Logout</a>
       </nav>
       <select class="language-select" onchange="setLanguage(this.value)">
         <option value="en">English</option>
@@ -360,7 +361,10 @@
     document.querySelector(".section").style.display = "block";
     document.querySelector("footer").style.display = "block";
   }
-
+function logout() {
+  localStorage.removeItem("ktmLoggedIn");
+  window.location.href = "index.html";
+}
   window.onload = function () {
     if (localStorage.getItem("ktmLoggedIn") === "true") {
       showPageContent();
