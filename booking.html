@@ -1,17 +1,15 @@
-<!-- Updated Booking Page with Dynamic Destination Filter -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KTM Booking</title>
   <script>
-  if (!localStorage.getItem("ktmLoggedIn")) {
-    alert("Please login first.");
-    window.location.href = "index.html";
-  }
-</script>
-
+    if (!localStorage.getItem("ktmLoggedIn")) {
+      alert("Please login first.");
+      window.location.href = "index.html";
+    }
+  </script>
   <style>
     body { font-family: 'Segoe UI', sans-serif; background-color: #f9fbfd; margin: 0; padding: 0; }
     header { background-color: #ffffff; padding: 15px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
@@ -19,7 +17,7 @@
     nav { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
     nav a { text-decoration: none; color: #333; font-weight: 500; }
     nav a.active { color: #2563eb; }
-    select { padding: 5px 10px; font-size: 14px; border-radius: 5px; }
+    select.language { padding: 5px 10px; font-size: 14px; border-radius: 5px; }
     main { max-width: 600px; margin: 40px auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     h2 { text-align: center; color: #1e3a8a; }
     label { display: block; margin-top: 20px; font-weight: 500; }
@@ -31,7 +29,10 @@
     .schedule-options div:hover { background-color: #e0f2fe; border-color: #3b82f6; }
     #success-message { display: none; margin-top: 20px; padding: 15px; background-color: #d1fae5; color: #065f46; border-radius: 8px; font-weight: bold; text-align: center; }
     footer { text-align: center; padding: 30px; font-size: 14px; color: #777; }
-    @media (max-width: 768px) { header { flex-direction: column; align-items: flex-start; } nav { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 10px; } }
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; }
+      nav { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -42,34 +43,42 @@
       <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
       <a href="booking.html" class="active" data-en="Booking" data-ms="Tempahan" data-zh="订票">Booking</a>
       <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+      <select class="language language" id="language-switcher">
+        <option value="en">English</option>
+        <option value="ms">Bahasa Melayu</option>
+        <option value="zh">中文</option>
+      </select>
     </nav>
   </header>
+
   <main>
     <h2 data-en="Book Your Train Ticket" data-ms="Tempah Tiket Kereta Api" data-zh="预订火车票">Book Your Train Ticket</h2>
-    <label for="departure">Departure Station</label>
+    <label for="departure" data-en="Departure Station" data-ms="Stesen Bertolak" data-zh="出发站">Departure Station</label>
     <select id="departure" onchange="updateDestinations()">
       <option value="">-- Select --</option>
     </select>
-    <label for="destination">Destination Station</label>
+    <label for="destination" data-en="Destination Station" data-ms="Stesen Destinasi" data-zh="目的地站">Destination Station</label>
     <select id="destination" onchange="updateTimes()">
       <option value="">-- Select --</option>
     </select>
-    <label for="date">Travel Date</label>
+    <label for="date" data-en="Travel Date" data-ms="Tarikh Perjalanan" data-zh="出发日期">Travel Date</label>
     <input type="date" id="date">
 
     <div class="schedule-options" id="schedule-options"></div>
 
     <div id="passenger-section" style="display:none;">
-      <label for="passengers">Number of Passengers</label>
+      <label for="passengers" data-en="Number of Passengers" data-ms="Bilangan Penumpang" data-zh="乘客人数">Number of Passengers</label>
       <input type="number" id="passengers" min="1" max="10">
-      <button class="btn" onclick="confirmBooking()">Confirm Booking</button>
+      <button class="btn" onclick="confirmBooking()" data-en="Confirm Booking" data-ms="Sahkan Tempahan" data-zh="确认预订">Confirm Booking</button>
     </div>
 
     <div id="success-message"></div>
   </main>
+
   <footer>
-    © 2025 KTM Malaysia. All rights reserved.
+    &copy; 2025 KTM Malaysia. All rights reserved.
   </footer>
+
   <script>
     const routes = {
       "KL Sentral": ["Kajang", "UKM", "Seremban", "Pulau Sebang"],
@@ -87,6 +96,16 @@
       "Kajang-Pulau Sebang": ["13:15"],
       "UKM-Seremban": ["13:28"],
       "Seremban-Pulau Sebang": ["14:51"]
+    };
+
+    window.onload = () => {
+      const depSelect = document.getElementById("departure");
+      Object.keys(routes).forEach(station => {
+        const opt = document.createElement("option");
+        opt.value = station;
+        opt.textContent = station;
+        depSelect.appendChild(opt);
+      });
     };
 
     function updateDestinations() {
@@ -127,6 +146,7 @@
         optionsDiv.innerHTML = `<p><em>No trains found for this route.</em></p>`;
         document.getElementById("passenger-section").style.display = "none";
       }
+      document.getElementById("success-message").style.display = "none";
     }
 
     let selectedTime = "";
@@ -136,26 +156,25 @@
       const to = document.getElementById("destination").value;
       const date = document.getElementById("date").value;
       const pax = document.getElementById("passengers").value;
+
       if (!from || !to || !date || !selectedTime || !pax) {
         alert("Please complete all fields.");
         return;
       }
+
       const msg = `✅ Booking successful!<br>You have booked a train from <strong>${from}</strong> to <strong>${to}</strong> on <strong>${date}</strong> at <strong>${selectedTime}</strong> for <strong>${pax}</strong> passenger(s).`;
       const successBox = document.getElementById("success-message");
       successBox.innerHTML = msg;
       successBox.style.display = "block";
     }
 
-    // 初始化出发站选项
-    window.onload = () => {
-      const depSelect = document.getElementById("departure");
-      Object.keys(routes).forEach(station => {
-        const opt = document.createElement("option");
-        opt.value = station;
-        opt.textContent = station;
-        depSelect.appendChild(opt);
+    // Language switching
+    document.getElementById("language-switcher").addEventListener("change", function () {
+      const lang = this.value;
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
       });
-    };
+    });
   </script>
 </body>
 </html>
