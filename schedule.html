@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KTM Schedule</title>
-	<script>
-		if (!localStorage.getItem("ktmLoggedIn")) {
-		alert("Please login first.");
-		window.location.href = "index.html";
-		}
-	</script>
+  <script>
+    if (!localStorage.getItem("ktmLoggedIn")) {
+      alert("Please login first.");
+      window.location.href = "index.html";
+    }
+  </script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -17,6 +17,7 @@
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #ffffff;
       padding: 15px 40px;
@@ -26,57 +27,88 @@
       align-items: center;
       flex-wrap: wrap;
     }
+
     .logo {
       font-size: 22px;
       font-weight: bold;
       color: #2563eb;
     }
+
     nav {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 20px;
     }
+
     nav a {
       text-decoration: none;
       color: #333;
       font-weight: 500;
     }
+
     nav a.active {
       color: #2563eb;
     }
+
     select {
       padding: 5px 10px;
       font-size: 14px;
       border-radius: 5px;
     }
+
     main {
       max-width: 900px;
       margin: 40px auto;
-      background: white;
-      border-radius: 12px;
       padding: 30px;
+      border-radius: 12px;
+      background-image: url('img/Train2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      color: #000;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      z-index: 1;
     }
+
+    main::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      z-index: 0;
+    }
+
+    main > * {
+      position: relative;
+      z-index: 1;
+    }
+
     h2 {
       text-align: center;
       color: #1e3a8a;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
     }
+
     th, td {
       border: 1px solid #ccc;
       padding: 10px;
       text-align: center;
       font-size: 14px;
     }
+
     th {
       background-color: #eff6ff;
       color: #1d4ed8;
     }
+
     footer {
       text-align: center;
       padding: 30px;
@@ -100,6 +132,7 @@
       </select>
     </nav>
   </header>
+
   <main>
     <h2 data-en="Train Schedule" data-ms="Jadual Kereta Api" data-zh="列车时刻表">Train Schedule</h2>
     <p id="desc" data-en="The table below shows popular train routes with departure and arrival times."
@@ -131,9 +164,11 @@
       </tbody>
     </table>
   </main>
+
   <footer>
     © 2025 KTM Malaysia. All rights reserved.
   </footer>
+
   <script>
     document.getElementById("language-switcher").addEventListener("change", function () {
       const lang = this.value;
