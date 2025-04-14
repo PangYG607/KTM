@@ -333,31 +333,39 @@
     &copy; 2025 KTM Malaysia. All rights reserved.
   </footer>
 
-  <script>
-    function setLanguage(lang) {
-      document.querySelectorAll("[data-en]").forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
-      });
-    }
+<script>
+  function setLanguage(lang) {
+    document.querySelectorAll("[data-en]").forEach(el => {
+      el.textContent = el.getAttribute(`data-${lang}`);
+    });
+  }
 
-    function login() {
-      const phone = document.getElementById("phone").value;
-      const errorDiv = document.getElementById("error");
-      const phoneRegex = /^01\d{1}-?\d{7,8}$/;
+  function login() {
+    const phone = document.getElementById("phone").value;
+    const errorDiv = document.getElementById("error");
+    const phoneRegex = /^01\d{1}-?\d{7,8}$/;
 
-      if (!phoneRegex.test(phone)) {
-        errorDiv.textContent = "Please enter a valid Malaysian phone number (e.g. 012-3456789)";
-      } else {
-        
-		localStorage.setItem("ktmLoggedIn", "true");
-		
-		document.getElementById("loginScreen").classList.add("hidden");
-        document.querySelector("header").style.display = "flex";
-        document.querySelector(".hero").style.display = "flex";
-        document.querySelector(".section").style.display = "block";
-        document.querySelector("footer").style.display = "block";
-      }
+    if (!phoneRegex.test(phone)) {
+      errorDiv.textContent = "Please enter a valid Malaysian phone number (e.g. 012-3456789)";
+    } else {
+      localStorage.setItem("ktmLoggedIn", "true");
+      showPageContent();
     }
-  </script>
+  }
+
+  function showPageContent() {
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.querySelector("header").style.display = "flex";
+    document.querySelector(".hero").style.display = "flex";
+    document.querySelector(".section").style.display = "block";
+    document.querySelector("footer").style.display = "block";
+  }
+
+  window.onload = function () {
+    if (localStorage.getItem("ktmLoggedIn") === "true") {
+      showPageContent();
+    }
+  };
+</script>
 </body>
 </html>
