@@ -255,6 +255,52 @@
         font-size: 16px;
       }
     }
+	.menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+
+    nav {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    nav.show {
+      display: flex;
+    }
+
+    nav a {
+      margin: 10px 0;
+    }
+
+    .card-container {
+      flex-direction: column;
+    }
+
+    .hero-text h2 {
+      font-size: 28px;
+    }
+
+    .hero-text p {
+      font-size: 16px;
+    }
+  }
   </style>
 </head>
 <body>
@@ -267,23 +313,25 @@
     </div>
   </div>
 
-  <header>
-    <h1>KTM Malaysia</h1>
-    <div style="display: flex; align-items: center; flex-wrap: wrap;">
-      <nav>
-        <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="主页">Home</a>
-        <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
-        <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="预订">Booking</a>
-        <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
-		<a href="#" onclick="logout()" style="color:red;" data-en="Logout" data-ms="Log Keluar" data-zh="登出">Logout</a>
-      </nav>
-      <select class="language-select" onchange="setLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="ms">Malay</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
-  </header>
+<header>
+  <h1>KTM Malaysia</h1>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <div style="display: flex; align-items: center; flex-wrap: wrap; width: 100%;">
+    <nav id="mainNav">
+      <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="主页">Home</a>
+      <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
+      <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="预订">Booking</a>
+      <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+      <a href="#" onclick="logout()" style="color:red;" data-en="Logout" data-ms="Log Keluar" data-zh="登出">Logout</a>
+    </nav>
+    <select class="language-select" onchange="setLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="ms">Malay</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
+</header>
+
 
   <section class="hero">
     <img src="Train1.gif" alt="Train animation" class="hero-gif">
@@ -370,6 +418,10 @@ function logout() {
       showPageContent();
     }
   };
+  function toggleMenu() {
+    const nav = document.getElementById("mainNav");
+    nav.classList.toggle("show");
+  }
 </script>
 </body>
 </html>
