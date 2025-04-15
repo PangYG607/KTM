@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KTM Malaysia - My Tickets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1><a href="index.html">KTM Malaysia</a></h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="booking.html">Booking</a>
+      <a href="booking-records.html">Ticket</a>
+	  <a href="contact.html">Contact</a>
+      <button id="profileBtn" class="profile-btn">Sign In</button>
+    </nav>
+  </header>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>User Profile</h2>
+      <div id="userInfo">Guest</div>
+      <div class="modal-buttons">
+        <button id="userActionBtn" class="userActionBtn">Login</button>
+        <button id="bookingRecordsBtn" class="bookingRecordsBtn">Booking Records</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 修改后 -->
+<section class="section">
+  <h3>My Tickets</h3>
+  <div id="bookingRecordsContainer">
+    <!-- 动态内容 -->
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 KTM Malaysia. All rights reserved.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

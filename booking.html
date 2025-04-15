@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KTM Malaysia - Booking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Flatpickr 样式和脚本 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1><a href="index.html">KTM Malaysia</a></h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="booking.html">Booking</a>
+      <a href="booking-records.html">Ticket</a>
+      <a href="contact.html">Contact</a>
+      <button id="profileBtn" class="profile-btn">Sign In</button>
+    </nav>
+  </header>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Booking Section -->
+  <section class="section">
+    <h3>Book Your Ticket</h3>
+    <form id="bookingForm">
+      <!-- 修改日期输入为 text 类型 -->
+      <label for="depDate">Departure Date:</label>
+      <input type="text" id="depDate" placeholder="DD/MM/YYYY" readonly required>
+
+      <label for="ticketType">Ticket Type:</label>
+      <select id="ticketType" required>
+        <option value="oneway">One Way</option>
+        <option value="roundtrip">Round Trip</option>
+      </select>
+
+      <!-- 更新出发站选项（由 JavaScript 动态生成） -->
+      <label for="depLocation">From:</label>
+      <select id="depLocation" required>
+        <option value="">Select Departure Station</option>
+      </select>
+
+      <label for="destLocation">To:</label>
+      <select id="destLocation" required disabled>
+        <option value="">Select Destination Station</option>
+      </select>
+
+      <label>Number of Passengers:</label>
+      <div class="person-group">
+        <div>
+          <label for="adults">Adults:</label>
+          <input type="number" id="adults" min="0" value="0">
+        </div>
+        <div>
+          <label for="children">Children:</label>
+          <input type="number" id="children" min="0" value="0">
+        </div>
+        <div>
+          <label for="oku">OKU:</label>
+          <input type="number" id="oku" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="total-price">
+        <p>Total Price: RM <span id="totalPrice">0</span></p>
+      </div>
+
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 KTM Malaysia. All rights reserved.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

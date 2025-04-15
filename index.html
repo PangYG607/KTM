@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KTM Malaysia - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1><a href="index.html">KTM Malaysia</a></h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="booking.html">Booking</a>
+      <a href="booking-records.html">Ticket</a>
+	  <a href="contact.html">Contact</a>
+      <button id="profileBtn" class="profile-btn">Sign In</button>
+    </nav>
+  </header>
+
+  <!-- Profile Modal -->
+ <div id="profileModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="modal-body"></div>
+  </div>
+</div>
+
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="Train1.gif" alt="Train Animation" class="hero-gif"/>
+    <div class="hero-text">
+      <h2>Welcome to KTM Online Booking</h2>
+      <p>Plan your train journey with ease. Fast, responsive, and secure — anytime, anywhere.</p>
+      <button onclick="location.href='booking.html'">Book Now</button>
+    </div>
+  </section>
+
+  <!-- Why Choose KTM Section -->
+  <section class="section">
+    <h3>Why Choose KTM?</h3>
+    <div class="card-container">
+      <div class="card">
+        <h4>Convenient Scheduling</h4>
+        <p>View and select train times with multilingual support and real-time updates.</p>
+      </div>
+      <div class="card">
+        <h4>Easy Booking</h4>
+        <p>Book your tickets seamlessly. Simple and user-friendly interface.</p>
+      </div>
+      <div class="card">
+        <h4>Responsive Design</h4>
+        <p>Enjoy a smooth experience on all devices, desktop and mobile.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 KTM Malaysia. All rights reserved.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
