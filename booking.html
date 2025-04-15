@@ -340,6 +340,134 @@
       const nav = document.getElementById("mainNav");
       nav.classList.toggle("show");
     }
+	const routes = {
+    "KL Sentral": ["Kajang", "UKM", "Seremban", "Pulau Sebang"],
+    "Kajang": ["Seremban", "Pulau Sebang"],
+    "UKM": ["Seremban"],
+    "Seremban": ["Pulau Sebang"]
+  };
+
+  const trainTimes = {
+    "KL Sentral-Kajang": ["06:33"],
+    "KL Sentral-UKM": ["07:00"],
+    "KL Sentral-Seremban": ["07:45"],
+    "KL Sentral-Pulau Sebang": ["09:03", "17:00", "21:30"],
+    "Kajang-Seremban": ["10:30"],
+    "Kajang-Pulau Sebang": ["13:15"],
+    "UKM-Seremban": ["13:28"],
+    "Seremban-Pulau Sebang": ["14:51"]
+  };
+
+  const ticketPrices = {
+    "KL Sentral-Kajang": 5,
+    "KL Sentral-UKM": 7,
+    "KL Sentral-Seremban": 10,
+    "KL Sentral-Pulau Sebang": 15,
+    "Kajang-Seremban": 6,
+    "Kajang-Pulau Sebang": 12,
+    "UKM-Seremban": 8,
+    "Seremban-Pulau Sebang": 6
+  };
+
+  let selectedTime = "";
+
+  window.onload = () => {
+    const depSelect = document.getElementById("departure");
+    Object.keys(routes).forEach(station => {
+      const opt = document.createElement("option");
+      opt.value = station;
+      opt.textContent = station;
+      depSelect.appendChild(opt);
+    });
+  };
+
+  function updateDestinations() {
+    const dep = document.getElementById("departure").value;
+    const destSelect = document.getElementById("destination");
+    destSelect.innerHTML = '<option value="">-- Select --</option>';
+    if (routes[dep]) {
+      routes[dep].forEach(dest => {
+        const opt = document.createElement("option");
+        opt.value = dest;
+        opt.textContent = dest;
+        destSelect.appendChild(opt);
+      });
+    }
+    document.getElementById("schedule-options").innerHTML = "";
+    document.getElementById("passenger-section").style.display = "none";
+  }
+
+  function updateTimes() {
+    const from = document.getElementById("departure").value;
+    const to = document.getElementById("destination").value;
+    const key = `${from}-${to}`;
+    const optionsDiv = document.getElementById("schedule-options");
+    optionsDiv.innerHTML = "";
+
+    if (trainTimes[key]) {
+      optionsDiv.innerHTML = `<p><strong>Available Trains:</strong></p>`;
+      trainTimes[key].forEach(time => {
+        const div = document.createElement("div");
+        div.textContent = time;
+        div.onclick = () => {
+          selectedTime = time;
+          document.getElementById("passenger-section").style.display = "block";
+        };
+        optionsDiv.appendChild(div);
+      });
+    } else {
+      optionsDiv.innerHTML = `<p><em>No trains found for this route.</em></p>`;
+      document.getElementById("passenger-section").style.display = "none";
+    }
+    document.getElementById("success-message").style.display = "none";
+  }
+
+  function confirmBooking() {
+    const from = document.getElementById("departure").value;
+    const to = document.getElementById("destination").value;
+    const date = document.getElementById("date").value;
+    const pax = parseInt(document.getElementById("passengers").value);
+    const type = document.querySelector('input[name="ticketType"]:checked').value;
+
+    if (!from || !to || !date || !selectedTime || !pax) {
+      alert("Please complete all fields.");
+      return;
+    }
+
+    const routeKey = `${from}-${to}`;
+    const unitPrice = ticketPrices[routeKey] || 10; // fallback default
+    const isRoundTrip = type === "roundtrip";
+    const totalPrice = unitPrice * pax * (isRoundTrip ? 2 : 1);
+
+    const msg = `
+      ✅ Booking successful!<br>
+      You have booked a <strong>${type === "roundtrip" ? "Round-trip" : "One-way"}</strong> ticket 
+      from <strong>${from}</strong> to <strong>${to}</strong> 
+      on <strong>${date}</strong> at <strong>${selectedTime}</strong> 
+      for <strong>${pax}</strong> passenger(s).<br><br>
+      <strong>Total Price:</strong> RM ${totalPrice.toFixed(2)}
+    `;
+
+    const successBox = document.getElementById("success-message");
+    successBox.innerHTML = msg;
+    successBox.style.display = "block";
+  }
+
+  function setLanguage(lang) {
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute(`data-${lang}`);
+    });
+  }
+
+  function logout() {
+    localStorage.removeItem("ktmLoggedIn");
+    window.location.href = "index.html";
+  }
+
+  function toggleMenu() {
+    const nav = document.getElementById("mainNav");
+    nav.classList.toggle("show");
+  }
   </script>
 </body>
 </html>
