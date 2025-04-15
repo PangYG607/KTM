@@ -10,182 +10,7 @@
       window.location.href = "index.html";
     }
   </script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9fbfd;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #ffffff;
-      padding: 15px 40px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header h1 {
-      font-size: 22px;
-      font-weight: bold;
-      color: #2563eb;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-
-    nav a.active {
-      color: #2563eb;
-    }
-
-    .language-select {
-      padding: 6px 10px;
-      font-size: 14px;
-      border-radius: 5px;
-      max-width: 200px;
-      width: auto;
-      margin-left: auto;
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-left: auto;
-    }
-
-    main {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    }
-
-    h2 {
-      text-align: center;
-      color: #1e3a8a;
-    }
-
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: 500;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-
-    .btn {
-      margin-top: 30px;
-      width: 100%;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #1d4ed8;
-    }
-
-    .schedule-options {
-      margin-top: 25px;
-    }
-
-    .schedule-options div {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-top: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .schedule-options div:hover {
-      background-color: #e0f2fe;
-      border-color: #3b82f6;
-    }
-
-    #success-message {
-      display: none;
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #d1fae5;
-      color: #065f46;
-      border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 14px;
-      color: #777;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      nav {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-      }
-
-      nav.show {
-        display: flex;
-      }
-
-      nav a {
-        margin: 10px 0;
-      }
-
-      .language-select {
-        width: 100%;
-        margin-top: 10px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
@@ -195,7 +20,7 @@
       <a href="index.html">Home</a>
       <a href="schedule.html">Schedule</a>
       <a href="booking.html" class="active">Booking</a>
-      <a href="contact.html">Contact</a>
+      <a href="userprofile.html">Profile</a>
       <a href="#" onclick="logout()" style="color:red;">Logout</a>
     </nav>
     <select class="language-select" onchange="setLanguage(this.value)">
@@ -206,22 +31,31 @@
   </header>
 
   <main>
-    <h2 data-en="Book Your Train Ticket" data-ms="Tempah Tiket Kereta Api" data-zh="预订火车票">Book Your Train Ticket</h2>
+    <div class="profile-section">
+      <h2 data-en="Booking Details" data-ms="Butiran Tempahan" data-zh="预订详情">Booking Details</h2>
+      <div id="bookingForm">
 
     <label data-en="Ticket Type" data-ms="Jenis Tiket" data-zh="车票类型">Ticket Type</label>
     <div style="margin-top: 10px;">
-      <label><input type="radio" name="ticketType" value="oneway" checked> One-way</label>
-      <label style="margin-left: 20px;"><input type="radio" name="ticketType" value="roundtrip"> Round-trip</label>
+      <label><input type="radio" name="ticketType" value="oneway" checked> <span data-en="One-way" data-ms="Sehala" data-zh="单程">One-way</span></label>
+      <label style="margin-left: 20px;"><input type="radio" name="ticketType" value="roundtrip"> <span data-en="Round-trip" data-ms="Pergi-balik" data-zh="往返">Round-trip</span></label>
+    </div>
+
+    <label data-en="Passenger Type" data-ms="Jenis Penumpang" data-zh="乘客类型">Passenger Type</label>
+    <div style="margin-top: 10px;">
+      <label><input type="radio" name="passengerType" value="adult" checked> <span data-en="Adult" data-ms="Dewasa" data-zh="成人">Adult</span></label>
+      <label style="margin-left: 20px;"><input type="radio" name="passengerType" value="child"> <span data-en="Child" data-ms="Kanak-kanak" data-zh="儿童">Child</span></label>
+      <label style="margin-left: 20px;"><input type="radio" name="passengerType" value="oku"> <span data-en="OKU" data-ms="OKU" data-zh="残障人士">OKU</span></label>
     </div>
 
     <label for="departure" data-en="Departure Station" data-ms="Stesen Bertolak" data-zh="出发站">Departure Station</label>
     <select id="departure" onchange="updateDestinations()">
-      <option value="">-- Select --</option>
+      <option value="" data-en="-- Select --" data-ms="-- Pilih --" data-zh="-- 选择 --">-- Select --</option>
     </select>
 
     <label for="destination" data-en="Destination Station" data-ms="Stesen Destinasi" data-zh="目的地站">Destination Station</label>
     <select id="destination" onchange="updateTimes()">
-      <option value="">-- Select --</option>
+      <option value="" data-en="-- Select --" data-ms="-- Pilih --" data-zh="-- 选择 --">-- Select --</option>
     </select>
 
     <label for="date" data-en="Travel Date" data-ms="Tarikh Perjalanan" data-zh="出发日期">Travel Date</label>
@@ -262,14 +96,20 @@
     };
 
     const ticketPrices = {
-      "KL Sentral-Kajang": 5,
-      "KL Sentral-UKM": 7,
-      "KL Sentral-Seremban": 10,
-      "KL Sentral-Pulau Sebang": 15,
-      "Kajang-Seremban": 6,
+      "KL Sentral-Kajang": 6,
+      "KL Sentral-UKM": 8,
+      "KL Sentral-Seremban": 12,
+      "KL Sentral-Pulau Sebang": 16,
+      "Kajang-Seremban": 8,
       "Kajang-Pulau Sebang": 12,
-      "UKM-Seremban": 8,
+      "UKM-Seremban": 6,
       "Seremban-Pulau Sebang": 6
+    };
+
+    const discounts = {
+      "adult": 1.0,
+      "child": 0.5,
+      "oku": 0.7
     };
 
     let selectedTime = "";
@@ -280,21 +120,39 @@
         const opt = document.createElement("option");
         opt.value = station;
         opt.textContent = station;
+        opt.setAttribute('data-en', station);
+        opt.setAttribute('data-ms', station);
+        opt.setAttribute('data-zh', station);
         depSelect.appendChild(opt);
       });
+      // Apply current language
+      const currentLang = document.querySelector('.language-select').value;
+      setLanguage(currentLang);
     };
 
     function updateDestinations() {
       const dep = document.getElementById("departure").value;
       const destSelect = document.getElementById("destination");
-      destSelect.innerHTML = '<option value="">-- Select --</option>';
+      const currentLang = document.querySelector('.language-select').value;
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.setAttribute('data-en', '-- Select --');
+      defaultOption.setAttribute('data-ms', '-- Pilih --');
+      defaultOption.setAttribute('data-zh', '-- 选择 --');
+      defaultOption.text = defaultOption.getAttribute(`data-${currentLang}`);
+      destSelect.innerHTML = '';
+      destSelect.appendChild(defaultOption);
       if (routes[dep]) {
         routes[dep].forEach(dest => {
           const opt = document.createElement("option");
           opt.value = dest;
           opt.textContent = dest;
+          opt.setAttribute('data-en', dest);
+          opt.setAttribute('data-ms', dest);
+          opt.setAttribute('data-zh', dest);
           destSelect.appendChild(opt);
         });
+        setLanguage(currentLang);
       }
       document.getElementById("schedule-options").innerHTML = "";
       document.getElementById("passenger-section").style.display = "none";
@@ -308,7 +166,7 @@
       optionsDiv.innerHTML = "";
 
       if (trainTimes[key]) {
-        optionsDiv.innerHTML = `<p><strong>Available Trains:</strong></p>`;
+        optionsDiv.innerHTML = `<p><strong data-en="Available Trains:" data-ms="Kereta Api yang Tersedia:" data-zh="可选列车：">Available Trains:</strong></p>`;
         trainTimes[key].forEach(time => {
           const div = document.createElement("div");
           div.textContent = time;
@@ -319,7 +177,7 @@
           optionsDiv.appendChild(div);
         });
       } else {
-        optionsDiv.innerHTML = `<p><em>No trains found for this route.</em></p>`;
+        optionsDiv.innerHTML = `<p><em data-en="No trains found for this route." data-ms="Tiada kereta api untuk laluan ini." data-zh="此路线暂无列车。">No trains found for this route.</em></p>`;
         document.getElementById("passenger-section").style.display = "none";
       }
       document.getElementById("success-message").style.display = "none";
@@ -331,35 +189,75 @@
       const date = document.getElementById("date").value;
       const pax = parseInt(document.getElementById("passengers").value);
       const type = document.querySelector('input[name="ticketType"]:checked').value;
+      const passengerType = document.querySelector('input[name="passengerType"]:checked').value;
 
       if (!from || !to || !date || !selectedTime || !pax) {
-        alert("Please complete all fields.");
+        const lang = document.querySelector('.language-select').value;
+        const messages = {
+          'en': 'Please complete all fields.',
+          'ms': 'Sila lengkapkan semua medan.',
+          'zh': '请填写所有字段。'
+        };
+        alert(messages[lang]);
+        return;
+      }
+
+      // Calculate total price
+      const routeKey = `${from}-${to}`;
+      const basePrice = ticketPrices[routeKey];
+      const discount = discounts[passengerType];
+      const total = basePrice * pax * discount * (type === 'roundtrip' ? 2 : 1);
+
+      // Save booking details for receipt
+      const bookingDetails = {
+        from,
+        to,
+        date,
+        time: selectedTime,
+        passengers: pax,
+        total: total.toFixed(2),
+        type,
+        passengerType
+      };
+      localStorage.setItem('currentBooking', JSON.stringify(bookingDetails));
+
+      // Redirect to receipt page
+      window.location.href = 'receipt.html';
         return;
       }
 
       const routeKey = `${from}-${to}`;
       const unitPrice = ticketPrices[routeKey] || 10;
       const isRoundTrip = type === "roundtrip";
-      const totalPrice = unitPrice * pax * (isRoundTrip ? 2 : 1);
+      const passengerType = document.querySelector('input[name="passengerType"]:checked').value;
+      const discount = discounts[passengerType];
+      const totalPrice = unitPrice * pax * (isRoundTrip ? 2 : 1) * discount;
 
       const msg = `
         ✅ Booking successful!<br>
-        You have booked a <strong>${type === "roundtrip" ? "Round-trip" : "One-way"}</strong> ticket 
-        from <strong>${from}</strong> to <strong>${to}</strong> 
-        on <strong>${date}</strong> at <strong>${selectedTime}</strong> 
-        for <strong>${pax}</strong> passenger(s).<br><br>
-        <strong>Total Price:</strong> RM ${totalPrice.toFixed(2)}
+        <span data-en="You have booked a" data-ms="Anda telah menempah" data-zh="您已预订"></span> <strong>${type === "roundtrip" ? "<span data-en='Round-trip' data-ms='Pergi-balik' data-zh='往返'>Round-trip</span>" : "<span data-en='One-way' data-ms='Sehala' data-zh='单程'>One-way</span>"}</strong> <span data-en="ticket" data-ms="tiket" data-zh="车票"></span>
+        <span data-en="from" data-ms="dari" data-zh="从"></span> <strong>${from}</strong> <span data-en="to" data-ms="ke" data-zh="到"></span> <strong>${to}</strong>
+        <span data-en="on" data-ms="pada" data-zh="于"></span> <strong>${date}</strong> <span data-en="at" data-ms="pada jam" data-zh="在"></span> <strong>${selectedTime}</strong>
+        <span data-en="for" data-ms="untuk" data-zh="为"></span> <strong>${pax}</strong> <span data-en="passenger(s)" data-ms="penumpang" data-zh="位乘客"></span>.<br><br>
+        <strong><span data-en="Total Price" data-ms="Jumlah Harga" data-zh="总价"></span>:</strong> RM ${totalPrice.toFixed(2)}
       `;
 
       const successBox = document.getElementById("success-message");
       successBox.innerHTML = msg;
       successBox.style.display = "block";
-    }
+    
 
     function setLanguage(lang) {
       document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
+        if (el.tagName === 'OPTION') {
+          el.text = el.getAttribute(`data-${lang}`);
+        } else {
+          el.innerHTML = el.getAttribute(`data-${lang}`);
+        }
       });
+      // Update dynamic select options
+      updateDestinations();
+      updateTimes();
     }
 
     function logout() {

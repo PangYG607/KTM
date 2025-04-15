@@ -5,198 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KTM Malaysia</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --primary: #0f62fe;
-      --secondary: #33ccff;
-      --bg-light: #f4f7fb;
-      --text-dark: #1a1a1a;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-    }
-
-    .login-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .login-box {
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-    }
-
-    .login-box h2 {
-      color: var(--primary);
-      margin-bottom: 25px;
-    }
-
-    .login-box input {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-
-    .login-box button {
-      width: 100%;
-      padding: 14px;
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .login-box button:hover {
-      background-color: #0043ce;
-    }
-
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
-
-    .hidden { display: none; }
-
-    header, .hero, .section, footer {
-      display: none;
-    }
-
-    header {
-      background-color: #ffffff;
-      padding: 20px 10%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      flex-wrap: wrap;
-    }
-
-    header h1 {
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 24px;
-      white-space: nowrap;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      transition: color 0.3s;
-      white-space: nowrap;
-    }
-
-    nav a:hover {
-      color: var(--primary);
-    }
-
-    .language-select {
-      margin-left: 20px;
-      padding: 6px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .hero {
-      position: relative;
-      background: linear-gradient(to right, #e3f2fd, #d1ecff);
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero img.hero-gif {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-    }
-
-    .hero-text {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: #0f172a; /* 深蓝色更清晰 */
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.7);
-      border-radius: 16px;
-    }
-
-    .hero-text h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    .hero-text p {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .hero-text button {
-      background-color: var(--primary);
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .hero-text button:hover {
-      background-color: #0043ce;
-    }
-
-    .section {
-      padding: 60px 10%;
-    }
-
-    .section h3 {
-      font-size: 28px;
-      color: var(--primary);
-      margin-bottom: 30px;
-    }
+  <link rel="stylesheet" href="style.css">
 
     .card-container {
       display: flex;
@@ -304,14 +113,49 @@
   </style>
 </head>
 <body>
-  <div class="login-screen" id="loginScreen">
-    <div class="login-box">
-      <h2>Login to KTM</h2>
-      <input type="tel" id="phone" placeholder="Please enter your phone number">
-      <button onclick="login()">Login</button>
-      <div id="error" class="error"></div>
-    </div>
-  </div>
+
+
+<style>
+  .user-profile {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .user-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-width: 150px;
+    z-index: 1000;
+  }
+
+  .user-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .user-menu a:hover {
+    background: #f5f5f5;
+  }
+
+  @media (min-width: 769px) {
+    .user-profile:hover .user-menu {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .user-menu.show {
+      display: block;
+    }
+  }
+</style>
 
 <header>
   <h1>KTM Malaysia</h1>
@@ -322,13 +166,14 @@
       <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
       <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="预订">Booking</a>
       <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
-      <a href="#" onclick="logout()" style="color:red;" data-en="Logout" data-ms="Log Keluar" data-zh="登出">Logout</a>
+      <div class="user-profile" id="userProfileNav">
+        <span id="userDisplayName" data-en="Guest Mode" data-ms="Mod Tetamu" data-zh="游客访问模式">Guest Mode</span>
+        <div class="user-menu" id="userMenu">
+          <a href="userprofile.html" data-en="Profile" data-ms="Profil" data-zh="个人资料">Profile</a>
+          <a href="#" onclick="logout()" style="color:red;" data-en="Logout" data-ms="Log Keluar" data-zh="登出">Logout</a>
+        </div>
+      </div>
     </nav>
-    <select class="language-select" onchange="setLanguage(this.value)">
-      <option value="en">English</option>
-      <option value="ms">Malay</option>
-      <option value="zh">中文</option>
-    </select>
   </div>
 </header>
 
@@ -387,37 +232,80 @@
     document.querySelectorAll("[data-en]").forEach(el => {
       el.textContent = el.getAttribute(`data-${lang}`);
     });
+    localStorage.setItem('ktmLanguage', lang);
   }
 
-  function login() {
-    const phone = document.getElementById("phone").value;
-    const errorDiv = document.getElementById("error");
-    const phoneRegex = /^01\d{1}-?\d{7,8}$/;
-
-    if (!phoneRegex.test(phone)) {
-      errorDiv.textContent = "Please enter a valid Malaysian phone number (e.g. 012-3456789)";
-    } else {
-      localStorage.setItem("ktmLoggedIn", "true");
-      showPageContent();
-    }
-  }
-
-  function showPageContent() {
-    document.getElementById("loginScreen").classList.add("hidden");
-    document.querySelector("header").style.display = "flex";
-    document.querySelector(".hero").style.display = "flex";
-    document.querySelector(".section").style.display = "block";
-    document.querySelector("footer").style.display = "block";
-  }
-function logout() {
-  localStorage.removeItem("ktmLoggedIn");
-  window.location.href = "index.html";
-}
-  window.onload = function () {
-    if (localStorage.getItem("ktmLoggedIn") === "true") {
-      showPageContent();
-    }
+  // Load saved language preference on page load
+  window.onload = function() {
+    const savedLang = localStorage.getItem('ktmLanguage') || 'en';
+    setLanguage(savedLang);
   };
+
+  function checkLoginRequired(targetPage) {
+    if (!localStorage.getItem("ktmLoggedIn") && (targetPage === "booking.html" || targetPage === "contact.html")) {
+      window.location.href = `login.html?returnUrl=${targetPage}`;
+      return false;
+    }
+    return true;
+  }
+
+  // 修改所有导航链接的点击事件
+  document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+      if (link.getAttribute('href') !== '#') {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const href = this.getAttribute('href');
+          if (checkLoginRequired(href)) {
+            window.location.href = href;
+          }
+        });
+      }
+    });
+  });
+function toggleUserMenu(event) {
+  if (window.innerWidth <= 768) {
+    const userMenu = document.getElementById('userMenu');
+    userMenu.classList.toggle('show');
+    event.stopPropagation();
+  }
+}
+
+function updateUserDisplay() {
+  const userDisplayName = document.getElementById('userDisplayName');
+  const userMenu = document.getElementById('userMenu');
+  const isLoggedIn = localStorage.getItem('ktmLoggedIn');
+  const username = localStorage.getItem('ktmUsername') || 'Guest';
+  
+  if (isLoggedIn) {
+    userDisplayName.textContent = username;
+    userMenu.style.display = '';
+  } else {
+    const lang = localStorage.getItem('ktmLanguage') || 'en';
+    userDisplayName.textContent = userDisplayName.getAttribute(`data-${lang}`);
+    userMenu.style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const userProfile = document.getElementById('userProfileNav');
+  userProfile.addEventListener('click', toggleUserMenu);
+  document.addEventListener('click', function(event) {
+    if (!userProfile.contains(event.target)) {
+      document.getElementById('userMenu').classList.remove('show');
+    }
+  });
+  updateUserDisplay();
+});
+
+function logout() {
+  localStorage.removeItem('ktmLoggedIn');
+  localStorage.removeItem('ktmUsername');
+  updateUserDisplay();
+  window.location.href = 'index.html';
+}
+
   function toggleMenu() {
     const nav = document.getElementById("mainNav");
     nav.classList.toggle("show");

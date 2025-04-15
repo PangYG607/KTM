@@ -10,7 +10,8 @@
 		window.location.href = "index.html";
 		}
 	</script>
-	<style>
+	<link rel="stylesheet" href="style.css">
+	
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9fbfd;
@@ -146,7 +147,7 @@
     margin: 10px 0;
   }
 }
-  </style>
+
 </head>
 <body>
   <header>
@@ -157,7 +158,7 @@
       <a href="index.html">Home</a>
       <a href="schedule.html">Schedule</a>
       <a href="booking.html">Booking</a>
-      <a href="contact.html">Contact</a>
+      <a href="userprofile.html">Profile</a>
       <a href="#" onclick="logout()" style="color:red;">Logout</a>
     </nav>
     <select class="language-select" onchange="setLanguage(this.value)">
@@ -169,16 +170,27 @@
 </header>
   <main>
     <h2 data-en="Contact Us" data-ms="Hubungi Kami" data-zh="联系我们">Contact Us</h2>
-    <label for="name" data-en="Your Name" data-ms="Nama Anda" data-zh="您的姓名">Your Name</label>
-    <input type="text" id="name" placeholder="Enter your name" />
+    
+    <div class="contact-info">
+      <h3 data-en="KTM Contact Information" data-ms="Maklumat Hubungan KTM" data-zh="KTM联系方式">KTM Contact Information</h3>
+      <p><strong data-en="Customer Service Hotline" data-ms="Talian Hotline" data-zh="客服热线">Customer Service Hotline</strong>: 1-300-88-5862</p>
+      <p><strong data-en="Email" data-ms="Emel" data-zh="电子邮件">Email</strong>: customerservice@ktm.com.my</p>
+      <p><strong data-en="Operating Hours" data-ms="Waktu Operasi" data-zh="服务时间">Operating Hours</strong>: 8:00 AM - 10:00 PM (Daily)</p>
+    </div>
 
-    <label for="email" data-en="Your Email" data-ms="Emel Anda" data-zh="您的电子邮件">Your Email</label>
-    <input type="email" id="email" placeholder="Enter your email" />
+    <div class="contact-form">
+      <h3 data-en="Send Us a Message" data-ms="Hantar Mesej Kepada Kami" data-zh="给我们留言">Send Us a Message</h3>
+      <label for="name" data-en="Your Name" data-ms="Nama Anda" data-zh="您的姓名">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" />
 
-    <label for="message" data-en="Message" data-ms="Mesej" data-zh="留言">Message</label>
-    <textarea id="message" placeholder="Type your message here..."></textarea>
+      <label for="email" data-en="Your Email" data-ms="Emel Anda" data-zh="您的电子邮件">Your Email</label>
+      <input type="email" id="email" placeholder="Enter your email" />
 
-    <button class="btn" data-en="Send Message" data-ms="Hantar Mesej" data-zh="发送留言">Send Message</button>
+      <label for="message" data-en="Message" data-ms="Mesej" data-zh="留言">Message</label>
+      <textarea id="message" placeholder="Type your message here..."></textarea>
+
+      <button class="btn" data-en="Send Message" data-ms="Hantar Mesej" data-zh="发送留言">Send Message</button>
+    </div>
   </main>
   <footer>
     © 2025 KTM Malaysia. All rights reserved.
@@ -194,7 +206,7 @@
   const nav = document.getElementById("mainNav");
   nav.classList.toggle("show");
 }
-
+ 
   </script>
 </body>
 </html>

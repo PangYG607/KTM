@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KTM User Profile</title>
+  <script>
+    if (!localStorage.getItem("ktmLoggedIn")) {
+      alert("Please login first.");
+      window.location.href = "index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .profile-section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .profile-section:last-child {
+      border-bottom: none;
+    }
+    .profile-field {
+      margin-bottom: 20px;
+    }
+    .profile-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+    .profile-field input, .profile-field select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    .profile-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    .profile-actions button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .save-btn {
+      background-color: #2563eb;
+      color: white;
+    }
+    .save-btn:hover {
+      background-color: #1d4ed8;
+    }
+    .cancel-btn {
+      background-color: #e5e7eb;
+      color: #374151;
+    }
+    .cancel-btn:hover {
+      background-color: #d1d5db;
+    }
+    .booking-history {
+      margin-top: 20px;
+    }
+    .booking-item {
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .booking-item p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>KTM Malaysia</h1>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; width: 100%;">
+      <nav id="mainNav">
+        <a href="index.html" data-en="Home" data-ms="Laman Utama" data-zh="主页">Home</a>
+        <a href="schedule.html" data-en="Schedule" data-ms="Jadual" data-zh="时刻表">Schedule</a>
+        <a href="booking.html" data-en="Booking" data-ms="Tempahan" data-zh="预订">Booking</a>
+        <a href="contact.html" data-en="Contact" data-ms="Hubungi" data-zh="联系">Contact</a>
+        <a href="userprofile.html" data-en="Profile" data-ms="Profil" data-zh="个人资料">Profile</a>
+        <a href="#" onclick="logout()" style="color:red;" data-en="Logout" data-ms="Log Keluar" data-zh="登出">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="profile-container">
+    <div class="profile-section">
+      <h2 data-en="User Profile" data-ms="Profil Pengguna" data-zh="用户资料">User Profile</h2>
+      
+      <div class="profile-field">
+        <label data-en="Username" data-ms="Nama Pengguna" data-zh="用户名">Username</label>
+        <input type="text" id="username" readonly>
+      </div>
+
+      <div class="profile-field">
+        <label data-en="Phone Number" data-ms="Nombor Telefon" data-zh="电话号码">Phone Number</label>
+        <input type="tel" id="phone" readonly>
+      </div>
+
+      <div class="profile-field">
+        <label data-en="Email" data-ms="Emel" data-zh="电子邮件">Email</label>
+        <input type="email" id="email" readonly>
+      </div>
+
+      <div class="profile-actions">
+        <button class="save-btn" onclick="toggleEdit()" id="editBtn" data-en="Edit Profile" data-ms="Edit Profil" data-zh="编辑资料">Edit Profile</button>
+        <button class="cancel-btn" onclick="saveProfile()" id="saveBtn" style="display: none;" data-en="Save Changes" data-ms="Simpan" data-zh="保存更改">Save Changes</button>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h2 data-en="Language Settings" data-ms="Tetapan Bahasa" data-zh="语言设置">Language Settings</h2>
+      <div class="profile-field">
+        <label data-en="Select Language" data-ms="Pilih Bahasa" data-zh="选择语言">Select Language</label>
+        <select id="languageSelect" onchange="updateLanguage(this.value)">
+          <option value="en">English</option>
+          <option value="ms">Malay</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h2 data-en="Booking History" data-ms="Sejarah Tempahan" data-zh="购票记录">Booking History</h2>
+      <div id="bookingHistory" class="booking-history">
+        <!-- Booking history will be populated here -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 KTM Malaysia. All rights reserved.
+  </footer>
+
+  <script>
+    function updateLanguage(lang) {
+      localStorage.setItem('ktmLanguage', lang);
+      document.querySelectorAll("[data-en]").forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
+
+    function toggleMenu() {
+      const nav = document.getElementById("mainNav");
+      nav.classList.toggle("show");
+    }
+
+    function loadUserProfile() {
+      const userData = JSON.parse(localStorage.getItem("ktmUserData")) || {};
+      document.getElementById("username").value = userData.username || "";
+      document.getElementById("phone").value = userData.phone || "";
+      document.getElementById("email").value = userData.email || "";
+      
+      // Load saved language preference
+      const savedLang = localStorage.getItem('ktmLanguage') || 'en';
+      document.getElementById('languageSelect').value = savedLang;
+      updateLanguage(savedLang);
+
+      // Load booking history
+      const bookingHistory = JSON.parse(localStorage.getItem("ktmBookingHistory")) || [];
+      const historyContainer = document.getElementById("bookingHistory");
+      
+      if (bookingHistory.length === 0) {
+        historyContainer.innerHTML = `<p data-en="No booking history" data-ms="Tiada sejarah tempahan" data-zh="暂无购票记录">No booking history</p>`;
+      } else {
+        historyContainer.innerHTML = bookingHistory.map(booking => `
+          <div class="booking-item">
+            <p><strong data-en="From" data-ms="Dari" data-zh="出发">From</strong>: ${booking.from}</p>
+            <p><strong data-en="To" data-ms="Ke" data-zh="到达">To</strong>: ${booking.to}</p>
+            <p><strong data-en="Date" data-ms="Tarikh" data-zh="日期">Date</strong>: ${booking.date}</p>
+            <p><strong data-en="Time" data-ms="Masa" data-zh="时间">Time</strong>: ${booking.time}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    function toggleEdit() {
+      const inputs = document.querySelectorAll(".profile-field input");
+      const editBtn = document.getElementById("editBtn");
+      const saveBtn = document.getElementById("saveBtn");
+
+      inputs.forEach(input => {
+        input.readOnly = !input.readOnly;
+      });
+
+      editBtn.style.display = editBtn.style.display === "none" ? "block" : "none";
+      saveBtn.style.display = saveBtn.style.display === "none" ? "block" : "none";
+    }
+
+    function saveProfile() {
+      const userData = {
+        username: document.getElementById("username").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value
+      };
+
+      localStorage.setItem("ktmUserData", JSON.stringify(userData));
+      toggleEdit();
+      alert("Profile updated successfully!");
+    }
+
+    function logout() {
+      localStorage.removeItem("ktmLoggedIn");
+      localStorage.removeItem("ktmUserData");
+      window.location.href = "index.html";
+    }
+
+    window.onload = loadUserProfile;
+  </script>
+</body>
+</html>
