@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KTM Contact</title>
-	<script>
-		if (!localStorage.getItem("ktmLoggedIn")) {
-		alert("Please login first.");
-		window.location.href = "index.html";
-		}
-	</script>
-	<link rel="stylesheet" href="style.css">
-	
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact KTM</title>
+  <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9fbfd;
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #ffffff;
       padding: 15px 40px;
@@ -26,139 +20,120 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .logo {
+
+    header h1 {
       font-size: 22px;
       font-weight: bold;
       color: #2563eb;
     }
+
     nav {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 20px;
     }
+
     nav a {
       text-decoration: none;
       color: #333;
       font-weight: 500;
     }
+
     nav a.active {
       color: #2563eb;
     }
-    select {
-      padding: 5px 10px;
+
+    .language-select {
+      padding: 6px 10px;
       font-size: 14px;
       border-radius: 5px;
+      max-width: 200px;
+      width: auto;
+      margin-left: auto;
     }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
     main {
-      max-width: 600px;
+      max-width: 700px;
       margin: 40px auto;
       background: white;
       border-radius: 12px;
       padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
+
     h2 {
       text-align: center;
       color: #1e3a8a;
     }
-    label {
-      display: block;
+
+    p {
+      line-height: 1.6;
+      color: #444;
       margin-top: 20px;
-      font-weight: 500;
     }
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-    .btn {
-      margin-top: 30px;
-      width: 100%;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .btn:hover {
-      background-color: #1d4ed8;
-    }
+
     footer {
       text-align: center;
       padding: 30px;
       font-size: 14px;
       color: #777;
     }
+
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         align-items: flex-start;
       }
+
+      .menu-toggle {
+        display: block;
+      }
+
       nav {
+        display: none;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
+
+      .language-select {
+        width: 100%;
         margin-top: 10px;
       }
     }
-	.menu-toggle {
-  display: none;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: auto;
-}
-
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  nav {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  nav.show {
-    display: flex;
-  }
-
-  nav a {
-    margin: 10px 0;
-  }
-}
-
+  </style>
 </head>
 <body>
   <header>
-  <h1>KTM Malaysia</h1>
-  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-  <div style="display: flex; align-items: center; flex-wrap: wrap; width: 100%;">
+    <h1>KTM Malaysia</h1>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <nav id="mainNav">
       <a href="index.html">Home</a>
       <a href="schedule.html">Schedule</a>
       <a href="booking.html">Booking</a>
-      <a href="userprofile.html">Profile</a>
+      <a href="contact.html" class="active">Contact</a>
       <a href="#" onclick="logout()" style="color:red;">Logout</a>
     </nav>
     <select class="language-select" onchange="setLanguage(this.value)">
@@ -166,47 +141,41 @@
       <option value="ms">Malay</option>
       <option value="zh">中文</option>
     </select>
-  </div>
-</header>
+  </header>
+
   <main>
     <h2 data-en="Contact Us" data-ms="Hubungi Kami" data-zh="联系我们">Contact Us</h2>
-    
-    <div class="contact-info">
-      <h3 data-en="KTM Contact Information" data-ms="Maklumat Hubungan KTM" data-zh="KTM联系方式">KTM Contact Information</h3>
-      <p><strong data-en="Customer Service Hotline" data-ms="Talian Hotline" data-zh="客服热线">Customer Service Hotline</strong>: 1-300-88-5862</p>
-      <p><strong data-en="Email" data-ms="Emel" data-zh="电子邮件">Email</strong>: customerservice@ktm.com.my</p>
-      <p><strong data-en="Operating Hours" data-ms="Waktu Operasi" data-zh="服务时间">Operating Hours</strong>: 8:00 AM - 10:00 PM (Daily)</p>
-    </div>
+    <p data-en="If you have any questions or need assistance, feel free to reach out to us through the details below:"
+       data-ms="Jika anda mempunyai sebarang pertanyaan atau memerlukan bantuan, sila hubungi kami melalui maklumat di bawah:"
+       data-zh="如有任何疑问或需要协助，请通过以下方式联系我们：">
+      If you have any questions or need assistance, feel free to reach out to us through the details below:
+    </p>
 
-    <div class="contact-form">
-      <h3 data-en="Send Us a Message" data-ms="Hantar Mesej Kepada Kami" data-zh="给我们留言">Send Us a Message</h3>
-      <label for="name" data-en="Your Name" data-ms="Nama Anda" data-zh="您的姓名">Your Name</label>
-      <input type="text" id="name" placeholder="Enter your name" />
-
-      <label for="email" data-en="Your Email" data-ms="Emel Anda" data-zh="您的电子邮件">Your Email</label>
-      <input type="email" id="email" placeholder="Enter your email" />
-
-      <label for="message" data-en="Message" data-ms="Mesej" data-zh="留言">Message</label>
-      <textarea id="message" placeholder="Type your message here..."></textarea>
-
-      <button class="btn" data-en="Send Message" data-ms="Hantar Mesej" data-zh="发送留言">Send Message</button>
-    </div>
+    <p><strong>Email:</strong> support@ktm.com.my</p>
+    <p><strong>Phone:</strong> +60 3-2267 1200</p>
+    <p><strong>Operating Hours:</strong> 8:00 AM - 6:00 PM (Mon - Fri)</p>
+    <p><strong>Address:</strong> KTM Berhad Headquarters, Jalan Sultan Hishamuddin, 50621 Kuala Lumpur, Malaysia</p>
   </main>
+
   <footer>
-    © 2025 KTM Malaysia. All rights reserved.
+    &copy; 2025 KTM Malaysia. All rights reserved.
   </footer>
+
   <script>
-    document.getElementById("language-switcher").addEventListener("change", function () {
-      const lang = this.value;
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("show");
+    }
+
+    function logout() {
+      localStorage.removeItem("ktmLoggedIn");
+      window.location.href = "index.html";
+    }
+
+    function setLanguage(lang) {
       document.querySelectorAll('[data-en]').forEach(el => {
         el.textContent = el.getAttribute(`data-${lang}`);
       });
-    });
-	function toggleMenu() {
-  const nav = document.getElementById("mainNav");
-  nav.classList.toggle("show");
-}
- 
+    }
   </script>
 </body>
 </html>
