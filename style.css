@@ -75,7 +75,7 @@ nav a:hover,
   color: var(--primary);
 }
 
-/* 时间表新样式 */
+/* 时间表样式 */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -319,6 +319,34 @@ footer {
   box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
 }
 
+/* 下载按钮样式 */
+.download-section {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}
+
+.download-btn {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.download-btn:hover {
+  background-color: #0043ce;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
   header {
@@ -357,5 +385,16 @@ footer {
 
   .modal-content {
     padding: 20px;
+  }
+
+  /* 下载按钮移动端适配 */
+  .download-section {
+    left: 10px;
+    bottom: 10px;
+  }
+  
+  .download-btn {
+    padding: 10px 18px;
+    font-size: 14px;
   }
 }
