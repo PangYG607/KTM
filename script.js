@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const profileModal = document.getElementById('profileModal');
   const closeBtn = document.querySelector('.modal .close');
   const modalBody = document.querySelector('.modal-body');
+  console.log("Profile按钮元素：", profileBtn);
 
   // 初始化用户状态
   function initUserState() {
@@ -74,10 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 用户系统事件绑定
-  profileBtn?.addEventListener('click', () => {
+  if (profileBtn && profileModal) {
+  profileBtn.addEventListener('click', () => {
     updateAuthUI();
     toggleModal(true);
   });
+}
 
   closeBtn?.addEventListener('click', () => toggleModal(false));
   window.addEventListener('click', (e) => {

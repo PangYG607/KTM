@@ -341,6 +341,11 @@ footer {
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+.download-wrapper {
+  margin-top: 30px;  /* 调整间距大小 */
+  text-align: center; /* 确保按钮居中 */
+}
+
 .download-btn:hover {
   background-color: #0043ce;
   transform: translateY(-2px);
