@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <!-- Header -->
   <header>
     <h1><a href="index.html">KTM Malaysia</a></h1>
@@ -16,24 +17,23 @@
       <a href="schedule.html">Schedule</a>
       <a href="booking.html">Booking</a>
       <a href="booking-records.html">Ticket</a>
-	  <a href="contact.html">Contact</a>
+      <a href="contact.html">Contact</a>
       <button id="profileBtn" class="profile-btn">Sign In</button>
     </nav>
   </header>
 
   <!-- Profile Modal -->
-<div id="profileModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div class="modal-body"></div>
+  <div id="profileModal" class="modal" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-content" role="dialog">
+      <span class="close" aria-label="Close modal">&times;</span>
+      <div class="modal-body"></div>
+    </div>
   </div>
-</div>
-
 
   <!-- Contact Section -->
   <section class="section">
     <h3>Contact Us</h3>
-    <p>Address: KTM Malaysia Headquarters, Jalan KTM No. 1, Kuala Lumpur, Malaysia</p> <!-- 实际地址替换 -->
+    <p>Address: KTM Malaysia Headquarters, Jalan KTM No. 1, Kuala Lumpur, Malaysia</p>
     <p>Phone: +60 12-345 6789</p>
     <p>Email: contact@ktmmalaysia.com</p>
   </section>

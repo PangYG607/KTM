@@ -1,235 +1,240 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // ==================== 用户系统核心逻辑 ====================
+document.addEventListener('DOMContentLoaded', function () {
+  // —— 登录/登出 Modal 逻辑 —— //
   const profileBtn = document.getElementById('profileBtn');
-  const profileModal = document.getElementById('profileModal');
-  const closeBtn = document.querySelector('.modal .close');
-  const modalBody = document.querySelector('.modal-body');
-  console.log("Profile按钮元素：", profileBtn);
+  const modal = document.getElementById('profileModal');
+  const closeBtn = modal.querySelector('.close');
+  const modalBody = modal.querySelector('.modal-body');
 
-  // 初始化用户状态
   function initUserState() {
-    const username = localStorage.getItem('username');
-    document.querySelectorAll('.profile-btn').forEach(btn => {
-      btn.textContent = username || "Sign In"; // 未登录显示"Sign In"
-    });
+    const user = localStorage.getItem('username') || '';
+    document.querySelectorAll('.profile-btn').forEach(b => b.textContent = user || 'Sign In');
   }
 
-  // 模态框控制
-  function toggleModal(show = true) {
-    profileModal.style.display = show ? 'block' : 'none';
+  function toggleModal(show) {
+    modal.style.display = show ? 'block' : 'none';
   }
 
-  // 更新模态框内容
-  function updateAuthUI() {
-    const isLoggedIn = !!localStorage.getItem('username');
-    const username = localStorage.getItem('username');
-    
-    modalBody.innerHTML = isLoggedIn ? `
-      <div class="auth-status">
-        <h2>Welcome, ${username}</h2>
-        <button class="logout-btn">Logout</button>
-      </div>
-    ` : `
-      <div class="auth-form">
-        <h2>Sign In</h2>
-        <input type="email" id="loginEmail" placeholder="your.email@example.com">
-        <button class="login-btn">Continue with Email</button>
-      </div>
-    `;
-
-    // 绑定动态按钮事件
-    if (isLoggedIn) {
-      document.querySelector('.logout-btn')?.addEventListener('click', logout);
-    } else {
-      document.querySelector('.login-btn')?.addEventListener('click', login);
-    }
-  }
-
-  // 登录功能
-  function login() {
-    const email = document.getElementById('loginEmail')?.value;
-    if (!validateEmail(email)) {
-      alert('Please enter a valid email address');
-      return;
-    }
-    
-    const username = email.split('@')[0];
-    localStorage.setItem('username', username);
-    initUserState();
-    toggleModal(false);
-  }
-
-  // 登出功能
-  function logout() {
-    localStorage.removeItem('username');
-    initUserState();
-    toggleModal(false);
-    if (window.location.pathname.includes('booking-records.html')) {
-      window.location.reload(); // 登出后刷新记录页面
-    }
-  }
-
-  // 邮箱验证
   function validateEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  // 用户系统事件绑定
-  if (profileBtn && profileModal) {
-  profileBtn.addEventListener('click', () => {
+  function updateAuthUI() {
+    const loggedIn = !!localStorage.getItem('username');
+    const user = localStorage.getItem('username') || '';
+    if (loggedIn) {
+      modalBody.innerHTML = `
+        <div class="auth-status">
+          <h2>Welcome, ${user}</h2>
+          <button class="logout-btn">Logout</button>
+        </div>`;
+      modalBody.querySelector('.logout-btn').addEventListener('click', () => {
+        localStorage.removeItem('username');
+        initUserState();
+        toggleModal(false);
+        if (location.pathname.includes('booking-records.html')) location.reload();
+      });
+    } else {
+      modalBody.innerHTML = `
+        <div class="auth-form">
+          <h2>Sign In</h2>
+          <input id="loginEmail" type="email" placeholder="your.email@example.com">
+          <button class="login-btn">Continue</button>
+        </div>`;
+      modalBody.querySelector('.login-btn').addEventListener('click', () => {
+        const email = modalBody.querySelector('#loginEmail').value;
+        if (!validateEmail(email)) return alert('Invalid email');
+        localStorage.setItem('username', email.split('@')[0]);
+        initUserState();
+        toggleModal(false);
+      });
+    }
+  }
+
+  profileBtn?.addEventListener('click', () => {
     updateAuthUI();
     toggleModal(true);
   });
-}
 
   closeBtn?.addEventListener('click', () => toggleModal(false));
-  window.addEventListener('click', (e) => {
-    if (e.target === profileModal) toggleModal(false);
-  });
+  window.addEventListener('click', e => e.target === modal && toggleModal(false));
+  initUserState();
 
-  // ==================== 全局工具函数 ====================
-  function formatDateToDMY(isoDate) {
-    const [year, month, day] = isoDate.split('-');
-    return `${day}/${month}/${year}`;
-  }
-
-  // ==================== 日期处理 ====================
-  const depDateInput = document.getElementById('depDate');
-  if (depDateInput) {
-    // Flatpickr初始化（确保已加载CDN）
-    flatpickr("#depDate", {
-      dateFormat: "d/m/Y",
-      minDate: "today",
-      locale: { 
-        firstDayOfWeek: 1,
-        monthNames: [
-          "January", "February", "March", "April",
-          "May", "June", "July", "August",
-          "September", "October", "November", "December"
-        ]
+  // —— 日期选择器 —— //
+  const today = new Date().toISOString().split('T')[0];
+  if (window.flatpickr) {
+    flatpickr('#departure-date', {
+      dateFormat: 'Y-m-d',
+      minDate: today
+    });
+    flatpickr('#return-date', {
+      dateFormat: 'Y-m-d',
+      minDate: today,
+      onChange: (_, __, instance) => {
+        const depDate = document.getElementById('departure-date').value;
+        if (depDate) instance.set('minDate', depDate);
       }
     });
   }
 
-  // ==================== 车站动态联动（已更新正确数据）====================
+  // —— 站点映射 —— //
   const stationMap = {
-    "KL Sentral": ["Kajang", "UKM", "Seremban", "Pulau Sebang"],
-    "Kajang": ["Seremban", "Pulau Sebang"],
-    "UKM": ["Seremban"],
-    "Seremban": ["Pulau Sebang"],
-    "Pulau Sebang": []
+    'KL Sentral': ['Kajang', 'UKM', 'Seremban', 'Pulau Sebang'],
+    'Kajang': ['KL Sentral', 'Seremban', 'Pulau Sebang'],
+    'UKM': ['KL Sentral', 'Seremban'],
+    'Seremban': ['KL Sentral', 'Kajang', 'UKM', 'Pulau Sebang'],
+    'Pulau Sebang': ['KL Sentral', 'Kajang', 'Seremban']
   };
-
-  // 初始化出发站选项
-  const depLocationSelect = document.getElementById('depLocation');
-  if (depLocationSelect) {
-    depLocationSelect.innerHTML = '<option value="">Select Departure Station</option>' + 
-      Object.keys(stationMap)
-        .map(station => `<option value="${station}">${station}</option>`)
-        .join('');
-
-    // 动态加载目的地
-    depLocationSelect.addEventListener('change', function() {
-      const destSelect = document.getElementById('destLocation');
-      const destinations = stationMap[this.value] || [];
-      
-      destSelect.innerHTML = '<option value="">Select Destination</option>' + 
-        destinations.map(station => `<option value="${station}">${station}</option>`).join('');
-      
-      destSelect.disabled = destinations.length === 0;
+  const dep = document.getElementById('depLocation');
+  const dest = document.getElementById('destLocation');
+  if (dep && dest) {
+    dep.innerHTML = '<option value="">Select Origin</option>' +
+      Object.keys(stationMap).map(s => `<option>${s}</option>`).join('');
+    dep.addEventListener('change', () => {
+      const opts = stationMap[dep.value] || [];
+      dest.innerHTML = '<option value="">Select Destination</option>' +
+        opts.map(s => `<option>${s}</option>`).join('');
+      dest.disabled = !opts.length;
     });
   }
 
-  // ==================== 价格计算 ====================
-  function updatePrice() {
-    const adults = parseInt(document.getElementById('adults').value) || 0;
-    const children = parseInt(document.getElementById('children').value) || 0;
-    const oku = parseInt(document.getElementById('oku').value) || 0;
-    document.getElementById('totalPrice').textContent = adults * 10 + children * 5 + oku * 3;
+  // —— Pax 控制 —— //
+  let pax = { adults: 0, children: 0 };
+  const adultsCount = document.getElementById('adultsCount');
+  const childrenCount = document.getElementById('childrenCount');
+  function refreshPax() {
+    adultsCount && (adultsCount.textContent = pax.adults);
+    childrenCount && (childrenCount.textContent = pax.children);
   }
-
-  ['adults', 'children', 'oku'].forEach(id => {
-    document.getElementById(id)?.addEventListener('input', updatePrice);
+  document.querySelectorAll('.inc').forEach(b => {
+    b.addEventListener('click', () => { pax[b.dataset.type]++; refreshPax(); });
+  });
+  document.querySelectorAll('.dec').forEach(b => {
+    b.addEventListener('click', () => {
+      if (pax[b.dataset.type] > 0) { pax[b.dataset.type]--; refreshPax(); }
+    });
   });
 
-  // ==================== 表单提交处理（已修复登录验证）====================
-  document.getElementById('bookingForm')?.addEventListener('submit', function(e) {
+  // —— Booking 提交 —— //
+  document.getElementById('bookingForm')?.addEventListener('submit', e => {
     e.preventDefault();
-
-    // 强制登录验证
+    const totalPax = pax.adults + pax.children;
+    if (totalPax === 0) return alert('Please select at least one passenger!');
     if (!localStorage.getItem('username')) {
-      alert("Please sign in to continue booking");
       updateAuthUI();
       toggleModal(true);
       return;
     }
+    const depDateStr = document.getElementById('departure-date').value;
+    if (!depDateStr) return alert('Select departure date!');
+    const depDateObj = new Date(depDateStr);
+    if (depDateObj < new Date().setHours(0, 0, 0, 0)) return alert('Cannot book past dates!');
 
-    // 日期验证
-    const isoDate = document.getElementById('depDate').value;
-    const selectedDate = new Date(isoDate.split('/').reverse().join('-'));
-    
-    if (selectedDate < new Date().setHours(0,0,0,0)) {
-      alert("Cannot book past dates!");
-      return;
-    }
-
-    // 创建记录（包含用户名）
-    const bookingRecord = {
-      date: isoDate, // 直接使用Flatpickr格式化的日期
-      from: document.getElementById('depLocation').value,
-      to: document.getElementById('destLocation').value,
-      adults: document.getElementById('adults').value,
-      children: document.getElementById('children').value,
-      oku: document.getElementById('oku').value,
-      timestamp: new Date().getTime(),
-      username: localStorage.getItem('username')
+    const isRound = document.getElementById('roundTrip')?.checked;
+    const rec = {
+      type: isRound ? 'roundtrip' : 'oneway',
+      date: depDateObj.toISOString(),
+      from: dep.value,
+      to: dest.value,
+      returnDate: isRound ? document.getElementById('return-date').value : '',
+      adults: pax.adults,
+      children: pax.children,
+      username: localStorage.getItem('username'),
+      timestamp: Date.now()
     };
-
-    // 保存记录
-    const records = JSON.parse(localStorage.getItem('bookingRecords') || '[]');
-    records.push(bookingRecord);
-    localStorage.setItem('bookingRecords', JSON.stringify(records));
-
-    window.location.href = 'booking-records.html';
+    const arr = JSON.parse(localStorage.getItem('bookingRecords') || '[]');
+    arr.push(rec);
+    localStorage.setItem('bookingRecords', JSON.stringify(arr));
+    location.href = 'booking-records.html';
   });
 
-  // ==================== 预订记录页面（精确数据过滤）====================
-  function loadBookingRecords() {
-    const container = document.getElementById('bookingRecordsContainer');
-    const currentUser = localStorage.getItem('username');
+  // —— Round Trip 控制 —— //
+  const oneWay = document.getElementById('oneWay');
+  const roundTrip = document.getElementById('roundTrip');
+  const retWrap = document.getElementById('retDateWrap');
+  if (oneWay && roundTrip && retWrap) {
+    oneWay.addEventListener('change', () => retWrap.style.display = 'none');
+    roundTrip.addEventListener('change', () => retWrap.style.display = 'block');
+  }
+
+  // —— Booking Records 渲染 —— //
+  const stationOrder = ['KL Sentral', 'Kajang', 'UKM', 'Seremban', 'Pulau Sebang'];
+  function calculatePrice(from, to, adults, children) {
+    const i1 = stationOrder.indexOf(from);
+    const i2 = stationOrder.indexOf(to);
+    if (i1 === -1 || i2 === -1) return 0;
+    const segments = Math.abs(i2 - i1);
+    const adultPrice = segments * 4;
+    const childPrice = segments * 2;
+    return (adults * adultPrice) + (children * childPrice);
+  }
+
+  function renderTickets() {
+    const container = document.getElementById('ticketContainer');
+    const noMsg = document.getElementById('noRecordsMsg');
+    const username = localStorage.getItem('username');
     const allRecords = JSON.parse(localStorage.getItem('bookingRecords') || '[]');
-    
-    // 双重验证：存在用户且记录有效
-    const userRecords = currentUser 
-      ? allRecords.filter(record => 
-          record.username === currentUser && 
-          !!record.timestamp
-        ) 
-      : [];
+    const records = allRecords.filter(r => r.username === username);
 
-    container.innerHTML = userRecords.length ? 
-      userRecords.map((record, index) => `
-        <div class="card">
-          <h4>Ticket #${index + 1}</h4>
-          <p>📅 Date: ${record.date}</p>
-          <p>🚉 Route: ${record.from} → ${record.to}</p>
-          <p>👤 Booked by: ${record.username}</p>
-          <p>👥 Passengers: 
-            Adults (${record.adults}), 
-            Children (${record.children}), 
-            OKU (${record.oku})
-          </p>
-        </div>
-      `).join('') : 
-      '<p class="no-records">No booking records found. Please login and make a booking first.</p>';
+    container.innerHTML = '';
+    if (!username || !records.length) {
+      noMsg.style.display = '';
+      return;
+    }
+    noMsg.style.display = 'none';
+
+    records.forEach((rec) => {
+      let depTime = 'N/A', arrTime = 'N/A';
+      if (scheduleData[rec.from]?.[rec.to]) {
+        depTime = scheduleData[rec.from][rec.to].dep;
+        arrTime = scheduleData[rec.from][rec.to].arr;
+      }
+
+      let retHtml = '';
+      if (rec.type === 'roundtrip' && rec.returnDate) {
+        let rDep = 'N/A', rArr = 'N/A';
+        if (scheduleData[rec.to]?.[rec.from]) {
+          rDep = scheduleData[rec.to][rec.from].dep;
+          rArr = scheduleData[rec.to][rec.from].arr;
+        }
+        retHtml = `
+          <p><strong>Return Date:</strong> ${new Date(rec.returnDate).toLocaleDateString()}</p>
+          <p><strong>Return Departure:</strong> ${rDep}</p>
+          <p><strong>Return Arrival:</strong> ${rArr}</p>`;
+      }
+
+      let total = rec.adults * tripPrice + rec.children * childPrice;
+	  if (rec.type === 'roundtrip') {
+		  total *= 2; // round trip: double the price
+		  }
+
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h4>Type: ${rec.type === 'roundtrip' ? 'Round Trip' : 'One Way'}</h4>
+        <p><strong>Departure Date:</strong> ${new Date(rec.date).toLocaleDateString()}</p>
+        <p><strong>From:</strong> ${rec.from}</p>
+        <p><strong>To:</strong> ${rec.to}</p>
+        <p><strong>Departure Time:</strong> ${depTime}</p>
+        <p><strong>Arrival Time:</strong> ${arrTime}</p>
+        ${retHtml}
+        <p><strong>Adults:</strong> ${rec.adults}</p>
+        <p><strong>Children:</strong> ${rec.children}</p>
+        <p><strong>Total Price:</strong> RM${total.toFixed(2)}</p>
+        <button class="delete-btn" data-index="${rec.timestamp}">Delete</button>
+      `;
+      container.appendChild(card);
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ts = btn.getAttribute('data-index');
+        const newRecords = allRecords.filter(r => r.timestamp != ts);
+        localStorage.setItem('bookingRecords', JSON.stringify(newRecords));
+        renderTickets();
+      });
+    });
   }
 
-  // 自动加载记录（仅在记录页面执行）
-  if (window.location.pathname.includes('booking-records.html')) {
-    loadBookingRecords();
-    initUserState(); // 确保导航栏状态更新
-  }
-
-  // 初始化用户状态
-  initUserState();
+  renderTickets();
 });

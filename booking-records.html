@@ -1,16 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KTM Malaysia - My Tickets</title>
+  <title>KTM Malaysia - Booking Records</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <style>
+    .card {
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      background-color: #fff;
+      width: 100%;
+      max-width: 400px;
+      margin: 1rem;
+      flex: 1 1 300px;
+      position: relative;
+    }
+    .card h4 {
+      font-size: 1.2rem;
+      color: #1e3a8a;
+    }
+    .card p {
+      margin: 0.3rem 0;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #e11d48;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .delete-btn:hover {
+      background-color: #be123c;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
     <h1><a href="index.html">KTM Malaysia</a></h1>
     <nav>
@@ -18,32 +55,116 @@
       <a href="schedule.html">Schedule</a>
       <a href="booking.html">Booking</a>
       <a href="booking-records.html">Ticket</a>
-	  <a href="contact.html">Contact</a>
+      <a href="contact.html">Contact</a>
       <button id="profileBtn" class="profile-btn">Sign In</button>
     </nav>
   </header>
 
-  <!-- Profile Modal -->
-  <div id="profileModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div class="modal-body"></div>
+  <div id="profileModal" class="modal" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-content" role="dialog">
+      <span class="close" aria-label="Close modal">&times;</span>
+      <div class="modal-body"></div>
+    </div>
   </div>
-</div>
 
-  <!-- 修改后 -->
-<section class="section">
-  <h3>My Tickets</h3>
-  <div id="bookingRecordsContainer">
-    <!-- 动态内容 -->
-  </div>
-</section>
+  <section class="section">
+    <h3>Your Booking Records</h3>
+    <div id="ticketContainer" class="card-container"></div>
+    <p id="noRecordsMsg" class="no-records" style="display:none;">
+      No booking records found.
+    </p>
+  </section>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 KTM Malaysia. All rights reserved.
-  </footer>
+  <footer>&copy; 2025 KTM Malaysia. All rights reserved.</footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const container = document.getElementById('ticketContainer');
+      const noMsg = document.getElementById('noRecordsMsg');
+      const user = localStorage.getItem('username');
+
+      if (!user) {
+        noMsg.textContent = 'Please sign in to view your booking records.';
+        noMsg.style.display = '';
+        return;
+      }
+
+      const records = JSON.parse(localStorage.getItem('bookingRecords') || '[]').filter(r => r.username === user);
+      if (!records.length) {
+        noMsg.style.display = '';
+        return;
+      }
+      noMsg.style.display = 'none';
+
+      const scheduleData = {
+        'KL Sentral': { 'Kajang': { dep: '06:33', arr: '06:56', price: 6 }, 'UKM': { dep: '07:00', arr: '07:38', price: 4 }, 'Seremban': { dep: '07:45', arr: '08:51', price: 14 }, 'Pulau Sebang': { dep: '09:03', arr: '10:39', price: 16 } },
+        'Kajang': { 'KL Sentral': { dep: '18:26', arr: '18:49', price: 6 }, 'Seremban': { dep: '10:30', arr: '11:11', price: 10 }, 'Pulau Sebang': { dep: '13:15', arr: '14:26', price: 13 } },
+        'UKM': { 'KL Sentral': { dep: '19:03', arr: '19:41', price: 4 }, 'Seremban': { dep: '13:28', arr: '14:51', price: 12 } },
+        'Seremban': { 'KL Sentral': { dep: '20:01', arr: '21:07', price: 14 }, 'Kajang': { dep: '22:30', arr: '23:11', price: 10 }, 'UKM': { dep: '19:38', arr: '21:01', price: 12 }, 'Pulau Sebang': { dep: '08:43', arr: '09:14', price: 8 } },
+        'Pulau Sebang': { 'KL Sentral': { dep: '21:10', arr: '22:46', price: 16 }, 'Kajang': { dep: '19:42', arr: '20:53', price: 13 }, 'Seremban': { dep: '15:23', arr: '16:55', price: 8 } },
+      };
+
+      records.forEach((rec, index) => {
+        let depTime = 'N/A', arrTime = 'N/A';
+        let tripPrice = 16; // Default to KL Sentral price
+
+        if (scheduleData[rec.from]?.[rec.to]) {
+          depTime = scheduleData[rec.from][rec.to].dep;
+          arrTime = scheduleData[rec.from][rec.to].arr;
+          tripPrice = scheduleData[rec.from][rec.to].price;
+        }
+
+        let retHtml = '';
+        if (rec.type === 'roundtrip' && rec.returnDate) {
+          let rDep = 'N/A', rArr = 'N/A';
+          let returnPrice = tripPrice;
+          if (scheduleData[rec.to]?.[rec.from]) {
+            rDep = scheduleData[rec.to][rec.from].dep;
+            rArr = scheduleData[rec.to][rec.from].arr;
+            returnPrice = scheduleData[rec.to][rec.from].price;
+          }
+          retHtml = `
+            <p><strong>Return Date:</strong> ${new Date(rec.returnDate).toLocaleDateString()}</p>
+            <p><strong>Return Departure:</strong> ${rDep}</p>
+            <p><strong>Return Arrival:</strong> ${rArr}</p>`;
+        }
+
+        // Calculate total price with discount for children
+		const childPrice = tripPrice * 0.7; // 30% off for children
+		let total = rec.adults * tripPrice + rec.children * childPrice;
+		if (rec.type === 'roundtrip') {
+			total *= 2; // round trip: double the price
+			}
+
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h4>Type: ${rec.type === 'roundtrip' ? 'Round Trip' : 'One Way'}</h4>
+          <p><strong>Departure Date:</strong> ${new Date(rec.date).toLocaleDateString()}</p>
+          <p><strong>From:</strong> ${rec.from}</p>
+          <p><strong>To:</strong> ${rec.to}</p>
+          <p><strong>Departure Time:</strong> ${depTime}</p>
+          <p><strong>Arrival Time:</strong> ${arrTime}</p>
+          ${retHtml}
+          <p><strong>Adults:</strong> ${rec.adults}</p>
+          <p><strong>Children:</strong> ${rec.children}</p>
+          <p><strong>Total Price:</strong> RM${total.toFixed(2)}</p>
+          <button class="delete-btn" data-index="${rec.timestamp}">Delete</button>
+        `;
+        container.appendChild(card);
+      });
+
+      container.addEventListener('click', function (e) {
+        if (e.target.classList.contains('delete-btn')) {
+          const id = e.target.dataset.index;
+          let all = JSON.parse(localStorage.getItem('bookingRecords') || '[]');
+          all = all.filter(r => r.timestamp != id);
+          localStorage.setItem('bookingRecords', JSON.stringify(all));
+          location.reload();
+        }
+      });
+    });
+  </script>
 </body>
 </html>

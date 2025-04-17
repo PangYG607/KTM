@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <!-- Header -->
   <header>
     <h1><a href="index.html">KTM Malaysia</a></h1>
@@ -16,135 +17,54 @@
       <a href="schedule.html">Schedule</a>
       <a href="booking.html">Booking</a>
       <a href="booking-records.html">Ticket</a>
-	  <a href="contact.html">Contact</a>
+      <a href="contact.html">Contact</a>
       <button id="profileBtn" class="profile-btn">Sign In</button>
     </nav>
   </header>
 
   <!-- Profile Modal -->
-  <div id="profileModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div class="modal-body"></div>
+  <div id="profileModal" class="modal" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-content" role="dialog">
+      <span class="close" aria-label="Close modal">&times;</span>
+      <div class="modal-body"></div>
+    </div>
   </div>
-</div>
-
 
   <!-- Schedule Section -->
   <section class="section">
     <h3>Train Schedule</h3>
-    <!-- 在 schedule.html 的表格部分替换为以下代码 -->
-<table>
-  <thead>
-    <tr>
-      <th>Departure</th>
-      <th>Destination</th>
-      <th>Departure Time</th>
-      <th>Arrival Time</th>
-    </tr>
-  </thead>
-  <tbody>
+    <table>
+      <caption>Daily Train Departures & Arrivals</caption>
+      <thead>
         <tr>
-          <td>KL Sentral</td>
-          <td>Kajang</td>
-          <td>06:33</td>
-          <td>06:56</td>
+          <th>Departure</th>
+          <th>Destination</th>
+          <th>Departure Time</th>
+          <th>Arrival Time</th>
         </tr>
-        <tr>
-          <td>Kajang</td>
-          <td>KL Sentral</td>
-          <td>18:26</td>
-          <td>18:49</td>
-        </tr>
-        <tr>
-          <td>KL Sentral</td>
-          <td>UKM</td>
-          <td>07:00</td>
-          <td>07:38</td>
-        </tr>
-        <tr>
-          <td>UKM</td>
-          <td>KL Sentral</td>
-          <td>19:03</td>
-          <td>19:41</td>
-        </tr>
-        <tr>
-          <td>KL Sentral</td>
-          <td>Seremban</td>
-          <td>07:45</td>
-          <td>08:51</td>
-        </tr>
-        <tr>
-          <td>Seremban</td>
-          <td>KL Sentral</td>
-          <td>20:01</td>
-          <td>21:07</td>
-        </tr>
-        <tr>
-          <td>KL Sentral</td>
-          <td>Pulau Sebang</td>
-          <td>09:03</td>
-          <td>10:39</td>
-        </tr>
-        <tr>
-          <td>Pulau Sebang</td>
-          <td>KL Sentral</td>
-          <td>21:10</td>
-          <td>22:46</td>
-        </tr>
-        <tr>
-          <td>Kajang</td>
-          <td>Seremban</td>
-          <td>10:30</td>
-          <td>11:11</td>
-        </tr>
-        <tr>
-          <td>Seremban</td>
-          <td>Kajang</td>
-          <td>22:30</td>
-          <td>23:11</td>
-        </tr>
-        <tr>
-          <td>Kajang</td>
-          <td>Pulau Sebang</td>
-          <td>13:15</td>
-          <td>14:26</td>
-        </tr>
-        <tr>
-          <td>Pulau Sebang</td>
-          <td>Kajang</td>
-          <td>19:42</td>
-          <td>20:53</td>
-        </tr>
-		<tr>
-          <td>UKM</td>
-          <td>Seremban</td>
-          <td>13:28</td>
-          <td>14:51</td>
-        </tr>
-		<td>Seremban</td>
-          <td>UKM</td>
-          <td>19:38</td>
-          <td>21:01</td>
-        </tr>
-		<td>Seremban</td>
-          <td>Pulau Sebang</td>
-          <td>08:43</td>
-          <td>09:14</td>
-        </tr>
-		<td>Pulau Sebang</td>
-          <td>Seremban</td>
-          <td>15:23</td>
-          <td>16:55</td>
-        </tr>
+      </thead>
+      <tbody>
+        <tr><td>KL Sentral</td><td>Kajang</td><td>06:33</td><td>06:56</td></tr>
+        <tr><td>Kajang</td><td>KL Sentral</td><td>18:26</td><td>18:49</td></tr>
+        <tr><td>KL Sentral</td><td>UKM</td><td>07:00</td><td>07:38</td></tr>
+        <tr><td>UKM</td><td>KL Sentral</td><td>19:03</td><td>19:41</td></tr>
+        <tr><td>KL Sentral</td><td>Seremban</td><td>07:45</td><td>08:51</td></tr>
+        <tr><td>Seremban</td><td>KL Sentral</td><td>20:01</td><td>21:07</td></tr>
+        <tr><td>KL Sentral</td><td>Pulau Sebang</td><td>09:03</td><td>10:39</td></tr>
+        <tr><td>Pulau Sebang</td><td>KL Sentral</td><td>21:10</td><td>22:46</td></tr>
+        <tr><td>Kajang</td><td>Seremban</td><td>10:30</td><td>11:11</td></tr>
+        <tr><td>Seremban</td><td>Kajang</td><td>22:30</td><td>23:11</td></tr>
+        <tr><td>Kajang</td><td>Pulau Sebang</td><td>13:15</td><td>14:26</td></tr>
+        <tr><td>Pulau Sebang</td><td>Kajang</td><td>19:42</td><td>20:53</td></tr>
+        <tr><td>UKM</td><td>Seremban</td><td>13:28</td><td>14:51</td></tr>
+        <tr><td>Seremban</td><td>UKM</td><td>19:38</td><td>21:01</td></tr>
+        <tr><td>Seremban</td><td>Pulau Sebang</td><td>08:43</td><td>09:14</td></tr>
+        <tr><td>Pulau Sebang</td><td>Seremban</td><td>15:23</td><td>16:55</td></tr>
       </tbody>
-</table>
-<!-- 在 schedule.html 的表格部分后添加 -->
-<div class="download-wrapper">
-  <a href="schedule1.png" download class="download-btn">
-    Download Schedule
-  </a>
-</div>
+    </table>
+    <div class="download-wrapper">
+      <a href="schedule1.png" download class="download-btn">Download Schedule</a>
+    </div>
   </section>
 
   <!-- Footer -->

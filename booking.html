@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KTM Malaysia - Booking</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
-  <!-- Flatpickr 样式和脚本 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header + Modal (保持原有代码一致) -->
   <header>
     <h1><a href="index.html">KTM Malaysia</a></h1>
     <nav>
@@ -24,11 +23,9 @@
       <button id="profileBtn" class="profile-btn">Sign In</button>
     </nav>
   </header>
-
-  <!-- Profile Modal -->
-  <div id="profileModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
+  <div id="profileModal" class="modal" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-content" role="dialog">
+      <span class="close" aria-label="Close modal">&times;</span>
       <div class="modal-body"></div>
     </div>
   </div>
@@ -36,57 +33,71 @@
   <!-- Booking Section -->
   <section class="section">
     <h3>Book Your Ticket</h3>
+
+    <!-- Trip Type 切换 -->
+    <div class="form-row">
+		<label><input type="radio" id="oneWay" name="tripType" value="oneway" checked> One Way</label>
+		<label><input type="radio" id="roundTrip" name="tripType" value="roundtrip"> Round Trip</label>
+		<input type="hidden" id="tripType" name="tripType" value="oneway">
+	</div>
+
     <form id="bookingForm">
-      <!-- 修改日期输入为 text 类型 -->
-      <label for="depDate">Departure Date:</label>
-      <input type="text" id="depDate" placeholder="DD/MM/YYYY" readonly required>
-
-      <label for="ticketType">Ticket Type:</label>
-      <select id="ticketType" required>
-        <option value="oneway">One Way</option>
-        <option value="roundtrip">Round Trip</option>
-      </select>
-
-      <!-- 更新出发站选项（由 JavaScript 动态生成） -->
-      <label for="depLocation">From:</label>
-      <select id="depLocation" required>
-        <option value="">Select Departure Station</option>
-      </select>
-
-      <label for="destLocation">To:</label>
-      <select id="destLocation" required disabled>
-        <option value="">Select Destination Station</option>
-      </select>
-
-      <label>Number of Passengers:</label>
-      <div class="person-group">
-        <div>
-          <label for="adults">Adults:</label>
-          <input type="number" id="adults" min="0" value="0">
+      <!-- 站点选择 -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="depLocation">From</label>
+          <select id="depLocation" required>
+            <option value="">Select Origin</option>
+          </select>
         </div>
-        <div>
-          <label for="children">Children:</label>
-          <input type="number" id="children" min="0" value="0">
-        </div>
-        <div>
-          <label for="oku">OKU:</label>
-          <input type="number" id="oku" min="0" value="0">
+        <div class="form-group">
+          <label for="destLocation">To</label>
+          <select id="destLocation" required disabled>
+            <option value="">Select Destination</option>
+          </select>
         </div>
       </div>
 
-      <div class="total-price">
-        <p>Total Price: RM <span id="totalPrice">0</span></p>
+      <!-- 出发/返程日期 -->
+      <div class="date-row">
+        <div class="form-group">
+          <label for="departure-date">Departure Date</label>
+          <input type="date" id="departure-date" name="departure-date">
+        </div>
+        <div id="retDateWrap" class="form-group" style="display:none;">
+          <label for="return-date">Return Date</label>
+          <input type="date" id="return-date" name="return-date">
+        </div>
       </div>
 
-      <button type="submit">Confirm Booking</button>
+      <!-- Pax 计数 -->
+      <div class="form-row pax-row">
+		<div class="form-group pax-group">
+			<label>Adults</label>
+			<div class="pax-controls">
+				<button type="button" data-type="adults" class="dec">−</button>
+				<span id="adultsCount">0</span>
+				<button type="button" data-type="adults" class="inc">+</button>
+				</div>
+			</div>
+		</div>
+		<div class="form-row pax-row">
+			<div class="form-group pax-group">
+				<label>Children</label>
+				<div class="pax-controls">
+					<button type="button" data-type="children" class="dec">−</button>
+					<span id="childrenCount">0</span>
+					<button type="button" data-type="children" class="inc">+</button>
+					</div>
+				</div>
+			</div>
+
+      <!-- 搜索按钮 -->
+      <button type="submit" class="search-btn">SEARCH</button>
     </form>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 KTM Malaysia. All rights reserved.
-  </footer>
-
+  <footer>&copy; 2025 KTM Malaysia. All rights reserved.</footer>
   <script src="script.js"></script>
 </body>
 </html>
